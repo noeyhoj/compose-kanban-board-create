@@ -1,44 +1,60 @@
 package woowacourse.kanban.board
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.safeContentPadding
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import kanbanboard.composeapp.generated.resources.Res
-import kanbanboard.composeapp.generated.resources.compose_multiplatform
-import org.jetbrains.compose.resources.painterResource
+import androidx.compose.ui.unit.dp
+import woowacourse.kanban.board.component.KanbanBoardTemplate
+import woowacourse.kanban.board.constant.DEFAULT_CONTENT
+import woowacourse.kanban.board.constant.DEFAULT_NAME
+import woowacourse.kanban.board.constant.DEFAULT_TITLE
+import woowacourse.kanban.board.constant.MAX_CONTENT
+import woowacourse.kanban.board.constant.MAX_NAME
+import woowacourse.kanban.board.constant.MAX_TITLE
+import woowacourse.kanban.board.model.BoardData
+import woowacourse.kanban.board.model.Nickname
+import woowacourse.kanban.board.model.Tags
+import woowacourse.kanban.board.model.Title
 
 @Composable
-@Preview
 fun App() {
-    MaterialTheme {
-        var showContent by remember { mutableStateOf(false) }
-        Column(
-            modifier = Modifier
-                .background(MaterialTheme.colorScheme.primaryContainer)
-                .safeContentPadding()
-                .fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            Button(onClick = { showContent = !showContent }) {
-                Text("Click me!")
-            }
-            AnimatedVisibility(showContent) {
-                Image(painterResource(Res.drawable.compose_multiplatform), null)
-            }
+    val values = listOf(
+        BoardData(
+            title = Title(DEFAULT_TITLE),
+            content = DEFAULT_CONTENT,
+            tags = Tags(listOf("컴포넌트", "성능")),
+            nickname = Nickname(DEFAULT_NAME),
+        ),
+        BoardData(
+            title = Title(DEFAULT_TITLE),
+            tags = Tags(listOf("컴포넌트", "성능")),
+            nickname = Nickname(DEFAULT_NAME),
+        ),
+        BoardData(
+            title = Title(DEFAULT_TITLE),
+            content = DEFAULT_CONTENT,
+            tags = Tags(),
+            nickname = Nickname(DEFAULT_NAME),
+        ),
+        BoardData(
+            title = Title(DEFAULT_TITLE),
+            tags = Tags(),
+            nickname = Nickname(DEFAULT_NAME),
+        ),
+        BoardData(
+            title = Title(MAX_TITLE),
+            content = MAX_CONTENT,
+            tags = Tags(listOf("너무너무", "긴 태그", "최대로", "5자까지", "5개제한임")),
+            nickname = Nickname(MAX_NAME),
+        ),
+    )
+
+    LazyColumn(
+        verticalArrangement = Arrangement.spacedBy(10.dp),
+    ) {
+        items(values) { item ->
+            KanbanBoardTemplate(item)
         }
     }
 }
