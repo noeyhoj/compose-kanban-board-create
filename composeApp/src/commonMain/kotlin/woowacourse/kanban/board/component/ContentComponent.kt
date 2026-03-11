@@ -10,7 +10,10 @@ import androidx.compose.ui.unit.sp
 import woowacourse.kanban.board.constant.CONTENT_COLOR
 
 @Composable
-fun Content(content: String, modifier: Modifier = Modifier) {
+fun Content(
+    content: String,
+    modifier: Modifier = Modifier,
+) {
     Box(
         modifier = modifier,
     ) {

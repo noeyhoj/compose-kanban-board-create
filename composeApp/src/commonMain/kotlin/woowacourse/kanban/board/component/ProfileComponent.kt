@@ -22,7 +22,10 @@ import woowacourse.kanban.board.constant.PROFILE_COLOR
 import woowacourse.kanban.board.model.Nickname
 
 @Composable
-fun Profile(nickname: Nickname, modifier: Modifier = Modifier) {
+fun Profile(
+    nickname: Nickname,
+    modifier: Modifier = Modifier,
+) {
     Row(
         modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(6.dp),

@@ -38,7 +38,10 @@ fun CheckerScreen() {
 }
 
 @Composable
-fun CheckerView(checked: Boolean, check: () -> Unit) {
+fun CheckerView(
+    checked: Boolean,
+    check: () -> Unit,
+) {
     Column {
         Checkbox(
             checked = checked,

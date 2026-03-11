@@ -9,7 +9,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun Tag(content: String, modifier: Modifier = Modifier) {
+fun Tag(
+    content: String,
+    modifier: Modifier = Modifier,
+) {
     val maxLength = 5
 
     Box(
