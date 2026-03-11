@@ -1,6 +1,7 @@
 package woowacourse.kanban.create.component
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -18,20 +19,28 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun FooterRow(modifier: Modifier = Modifier) {
+fun FooterRow(
+    modifier: Modifier = Modifier,
+    onCancel: () -> Unit,
+    onCreate: () -> Unit,
+    isCreateError: Boolean,
+) {
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
         FooterButton(
             modifier = Modifier,
             text = "취소",
             backgroundColor = Color.White,
             textColor = Color(0xff364153),
+            onClick = onCancel,
         )
         Spacer(modifier = Modifier.width(12.dp))
         FooterButton(
             modifier = Modifier,
             text = "생성",
             textColor = Color.White,
-            backgroundColor = Color(0xff4F39F6),
+            backgroundColor = if (isCreateError) Color(0xFFA7A4Bc) else Color(0xff4F39F6),
+            onClick = onCreate,
+            enabled = isCreateError,
         )
     }
 }
@@ -42,6 +51,8 @@ fun FooterButton(
     text: String,
     backgroundColor: Color,
     textColor: Color,
+    enabled: Boolean = true,
+    onClick: () -> Unit,
 ) {
     Box(
         contentAlignment = Alignment.Center,
@@ -51,9 +62,9 @@ fun FooterButton(
                 height = 44.dp,
             )
             .clip(shape = RoundedCornerShape(10.dp))
-            .background(backgroundColor),
+            .background(backgroundColor).clickable(onClick = onClick, enabled = !enabled),
 
-        ) {
+    ) {
         Text(text, color = textColor)
     }
 }

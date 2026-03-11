@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,6 +25,13 @@ import androidx.compose.ui.unit.dp
     heightDp = 900,
 )
 fun TaskCreateDialog(modifier: Modifier = Modifier) {
+    var titleInputValue by remember { mutableStateOf("") }
+    var contentInputValue by remember { mutableStateOf("") }
+    var tagInputValue by remember { mutableStateOf("") }
+
+    var isTitleError by remember { mutableStateOf(false) }
+    var isTagError by remember { mutableStateOf(false) }
+
     val statuses = listOf(
         "To Do",
         "In Progress",
@@ -51,6 +60,12 @@ fun TaskCreateDialog(modifier: Modifier = Modifier) {
                 title = "제목 *",
                 placeHolder = "태스크 제목을 입력하세요",
                 height = 48.dp,
+                value = titleInputValue,
+                onChangeValue = { newTextValue ->
+                    titleInputValue = newTextValue
+                    if (isTitleError) isTitleError = false
+                },
+                isError = isTitleError,
             )
             CommonTextColumn(
                 modifier = Modifier,
@@ -58,6 +73,8 @@ fun TaskCreateDialog(modifier: Modifier = Modifier) {
                 placeHolder = "태스크에 대한 자세한 설명을 입력하세요",
                 height = 116.dp,
                 placeHolderAlignment = Alignment.TopStart,
+                value = contentInputValue,
+                onChangeValue = { newTextValue -> contentInputValue = newTextValue },
             )
             CommonTextColumn(
                 modifier = Modifier,
@@ -65,8 +82,14 @@ fun TaskCreateDialog(modifier: Modifier = Modifier) {
                 placeHolder = "태그를 쉼표로 구분하여 입력하세요 (예: 버그, 긴급)",
                 height = 44.dp,
                 hintText = "5자 이내의 태그를 최대 5개까지 등록할 수 있습니다.",
+                value = tagInputValue,
+                onChangeValue = { newTextValue ->
+                    tagInputValue = newTextValue
+                    if (isTagError) isTagError = false
+                },
+                isError = isTagError,
             )
-            CommonButtonColumn(
+            StatusButtonColumn(
                 modifier = Modifier.fillMaxWidth(),
                 header = "상태 *",
                 items = statuses,
@@ -77,7 +100,18 @@ fun TaskCreateDialog(modifier: Modifier = Modifier) {
                 items = names,
             )
             HorizontalDivider()
-            FooterRow()
+            FooterRow(
+                onCancel = { },
+                onCreate = {
+                    isTitleError = titleInputValue.isEmpty()
+                    val tags = tagInputValue.split(",")
+                    isTagError = tags.size > 5 || tags.all { it.length > 5 }
+
+                    if (isTitleError) titleInputValue = ""
+                    if (isTagError) tagInputValue = ""
+                },
+                isCreateError = isTitleError || isTagError,
+            )
         }
     }
 }
