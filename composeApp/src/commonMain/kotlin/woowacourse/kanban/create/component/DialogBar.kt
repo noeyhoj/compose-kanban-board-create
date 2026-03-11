@@ -25,7 +25,7 @@ fun DialogBar(modifier: Modifier = Modifier) {
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier,
     ) {
-        Text("새 태크스 생성", fontWeight = FontWeight.W600, fontSize = 20.sp)
+        Text("새 태스크 생성", fontWeight = FontWeight.W600, fontSize = 20.sp)
         Icon(imageVector = Icons.Default.Close, contentDescription = "닫기 버튼", modifier = Modifier.size(10.dp), tint = Color(0xFF6A7282))
     }
 }
