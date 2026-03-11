@@ -6,6 +6,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
@@ -14,9 +18,11 @@ fun CommonButtonColumn(
     modifier: Modifier = Modifier,
     header: String,
     items: List<String>,
-    content: @Composable (String) -> Unit,
+    composable: @Composable (String, Boolean, () -> Unit) -> Unit,
 ) {
-    Column {
+    var selectedIndex: Int by remember { mutableIntStateOf(0) }
+
+    Column(modifier) {
         HeaderText(title = header)
         LazyVerticalGrid(
             columns = GridCells.Fixed(3),
@@ -25,8 +31,15 @@ fun CommonButtonColumn(
         ) {
             items(
                 items.size,
-            ) { item ->
-                content(items[item])
+            ) { index ->
+                composable(
+                    items[index],
+                    selectedIndex == index,
+                    {
+                        selectedIndex = index
+                    },
+
+                )
             }
         }
     }

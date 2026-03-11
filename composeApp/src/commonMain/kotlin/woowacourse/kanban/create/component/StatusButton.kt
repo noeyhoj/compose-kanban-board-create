@@ -32,13 +32,13 @@ fun StatusButton(
         .background(Color(STATUS_BG_SELECTED))
     Box(
         modifier =
-            if (!isSelected) {
-                selectedModifier
-            } else {
-                unSelectedModifier
-            }.clickable(
-                onClick = onClick,
-            ),
+        if (!isSelected) {
+            selectedModifier
+        } else {
+            unSelectedModifier
+        }.clickable(
+            onClick = onClick,
+        ),
         contentAlignment = Alignment.Center,
     ) {
         Text(

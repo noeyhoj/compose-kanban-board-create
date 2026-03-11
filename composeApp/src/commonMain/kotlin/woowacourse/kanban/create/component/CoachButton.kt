@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import woowacourse.kanban.board.constant.COACH_BG_SELECTED
 import woowacourse.kanban.board.constant.COACH_BORDER_SELECTED
+import woowacourse.kanban.board.constant.COACH_ICON_TINT
 import woowacourse.kanban.board.constant.PRIMARY_BORDER
 import woowacourse.kanban.board.constant.PRIMARY_SUB_TEXT
 
@@ -53,7 +54,7 @@ fun CoachButton(
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 20.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Icon(imageVector = Icons.Default.AccountCircle, contentDescription = "코치 프로필 아이콘", tint = Color(COACH_BG_SELECTED))
+            Icon(imageVector = Icons.Default.AccountCircle, contentDescription = "코치 프로필 아이콘", tint = Color(COACH_ICON_TINT))
             Spacer(modifier = Modifier.width(12.dp))
             Text(name, fontWeight = FontWeight.W500, fontSize = 14.sp, color = Color(PRIMARY_SUB_TEXT))
         }

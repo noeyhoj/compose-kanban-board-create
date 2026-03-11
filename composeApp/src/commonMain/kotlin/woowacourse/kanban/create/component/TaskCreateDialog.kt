@@ -89,16 +89,18 @@ fun TaskCreateDialog(modifier: Modifier = Modifier) {
                 },
                 isError = isTagError,
             )
-            StatusButtonColumn(
-                modifier = Modifier.fillMaxWidth(),
+            CommonButtonColumn(
                 header = "상태 *",
                 items = statuses,
-            )
-            CoachButtonColumn(
-                modifier = Modifier.fillMaxWidth(),
+            ) { status, isSelected, onClick ->
+                StatusButton(status = status, isSelected = isSelected, onClick = onClick)
+            }
+            CommonButtonColumn(
                 header = "담당자 *",
                 items = names,
-            )
+            ) { name, isSelected, onClick ->
+                CoachButton(name = name, isSelected = isSelected, onClick = onClick)
+            }
             HorizontalDivider()
             FooterRow(
                 onCancel = { },
