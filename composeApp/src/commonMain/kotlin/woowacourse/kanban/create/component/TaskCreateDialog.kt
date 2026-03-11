@@ -20,6 +20,11 @@ import androidx.compose.ui.unit.dp
     heightDp = 900,
 )
 fun TaskCreateDialog(modifier: Modifier = Modifier) {
+    val statuses = listOf(
+        "To Do",
+        "In Progress",
+        "Done",
+    )
     Column(modifier = Modifier.background(color = Color.White)) {
         DialogBar(
             modifier = Modifier.padding(
@@ -55,12 +60,8 @@ fun TaskCreateDialog(modifier: Modifier = Modifier) {
             CommonButtonColumn(
                 modifier = Modifier.fillMaxWidth(),
                 header = "상태 *",
-                items = listOf(
-                    "To Do",
-                    "In Progress",
-                    "Done",
-                ),
-            ) { item -> StatusButton(status = item) }
+                items = statuses,
+            )
 
             CommonButtonColumn(
                 modifier = Modifier.fillMaxWidth(),
