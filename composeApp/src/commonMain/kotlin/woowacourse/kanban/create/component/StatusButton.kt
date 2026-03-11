@@ -14,6 +14,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import woowacourse.kanban.board.constant.PRIMARY_BORDER
+import woowacourse.kanban.board.constant.PRIMARY_SUB_TEXT
+import woowacourse.kanban.board.constant.STATUS_BG_SELECTED
+import woowacourse.kanban.board.constant.STATUS_BORDER_SELECTED
+import woowacourse.kanban.board.constant.STATUS_TEXT_SELECTED
 
 @Composable
 fun StatusButton(
@@ -25,10 +30,10 @@ fun StatusButton(
     Box(
         modifier =
         if (!isSelected) {
-            modifier.border(width = 2.dp, color = Color(0xFFE5E7EB), shape = RoundedCornerShape(10.dp))
+            modifier.border(width = 2.dp, color = Color(PRIMARY_BORDER), shape = RoundedCornerShape(10.dp))
         } else {
-            modifier.border(width = 2.dp, color = Color(0xFF1447E6), shape = RoundedCornerShape(10.dp))
-                .background(Color(0xFFEFF6FF))
+            modifier.border(width = 2.dp, color = Color(STATUS_BORDER_SELECTED), shape = RoundedCornerShape(10.dp))
+                .background(Color(STATUS_BG_SELECTED))
         }.clickable(
             onClick = onClick,
         ),
@@ -40,9 +45,9 @@ fun StatusButton(
             fontSize = 16.sp,
             modifier = Modifier.padding(vertical = 14.dp),
             color = if (!isSelected) {
-                Color(0xFF101828)
+                Color(PRIMARY_SUB_TEXT)
             } else {
-                Color(0xFF1447E6)
+                Color(STATUS_TEXT_SELECTED)
             },
 
         )

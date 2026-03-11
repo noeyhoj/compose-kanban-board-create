@@ -20,6 +20,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import woowacourse.kanban.board.constant.COACH_BG_SELECTED
+import woowacourse.kanban.board.constant.COACH_BORDER_SELECTED
+import woowacourse.kanban.board.constant.PRIMARY_BORDER
+import woowacourse.kanban.board.constant.PRIMARY_SUB_TEXT
 
 @Composable
 fun CoachButton(
@@ -31,12 +35,12 @@ fun CoachButton(
     Box(
         modifier = if (!isSelected) {
             modifier.border(
-                width = 2.dp, color = Color(0xFFE5E7EB), shape = RoundedCornerShape(10.dp),
+                width = 2.dp, color = Color(PRIMARY_BORDER), shape = RoundedCornerShape(10.dp),
             )
         } else {
             modifier.border(
-                width = 2.dp, color = Color(0xFF615FFF), shape = RoundedCornerShape(10.dp),
-            ).background(color = Color(0xFFEEF2FF))
+                width = 2.dp, color = Color(COACH_BORDER_SELECTED), shape = RoundedCornerShape(10.dp),
+            ).background(color = Color(COACH_BG_SELECTED))
         }.clickable(
             onClick = onClick,
         ),
@@ -46,9 +50,9 @@ fun CoachButton(
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 20.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Icon(imageVector = Icons.Default.AccountCircle, contentDescription = "코치 프로필 아이콘", tint = Color(0xFF838383))
+            Icon(imageVector = Icons.Default.AccountCircle, contentDescription = "코치 프로필 아이콘", tint = Color(COACH_BG_SELECTED))
             Spacer(modifier = Modifier.width(12.dp))
-            Text(name, fontWeight = FontWeight.W500, fontSize = 14.sp, color = Color(0xFF101828))
+            Text(name, fontWeight = FontWeight.W500, fontSize = 14.sp, color = Color(PRIMARY_SUB_TEXT))
         }
     }
 }
