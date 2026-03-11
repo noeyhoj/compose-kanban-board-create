@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -32,6 +33,7 @@ fun CoachButton(
     isSelected: Boolean,
     name: String,
     onClick: () -> Unit,
+    index: Int,
 ) {
     val selectedModifier = modifier.border(
         width = 2.dp, color = Color(PRIMARY_BORDER), shape = RoundedCornerShape(10.dp),
@@ -47,6 +49,8 @@ fun CoachButton(
             unSelectedModifier
         }.clickable(
             onClick = onClick,
+        ).testTag(
+            tag = if (isSelected) "selected$index" else "unselected$index",
         ),
 
     ) {

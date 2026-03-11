@@ -92,14 +92,14 @@ fun TaskCreateDialog(modifier: Modifier = Modifier) {
             CommonButtonColumn(
                 header = "상태 *",
                 items = statuses,
-            ) { status, isSelected, onClick ->
-                StatusButton(status = status, isSelected = isSelected, onClick = onClick)
+            ) { status, isSelected, onClick, index ->
+                StatusButton(status = status, isSelected = isSelected, onClick = onClick, index = index)
             }
             CommonButtonColumn(
                 header = "담당자 *",
                 items = names,
-            ) { name, isSelected, onClick ->
-                CoachButton(name = name, isSelected = isSelected, onClick = onClick)
+            ) { name, isSelected, onClick, index ->
+                CoachButton(name = name, isSelected = isSelected, onClick = onClick, index = index)
             }
             HorizontalDivider()
             FooterRow(

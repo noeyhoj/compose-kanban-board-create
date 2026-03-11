@@ -18,7 +18,7 @@ fun CommonButtonColumn(
     modifier: Modifier = Modifier,
     header: String,
     items: List<String>,
-    composable: @Composable (String, Boolean, () -> Unit) -> Unit,
+    composable: @Composable (String, Boolean, () -> Unit, Int) -> Unit,
 ) {
     var selectedIndex: Int by remember { mutableIntStateOf(0) }
 
@@ -38,6 +38,7 @@ fun CommonButtonColumn(
                     {
                         selectedIndex = index
                     },
+                    index,
 
                 )
             }
