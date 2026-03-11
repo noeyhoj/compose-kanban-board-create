@@ -32,15 +32,18 @@ fun CoachButton(
     name: String,
     onClick: () -> Unit,
 ) {
+    val selectedModifier = modifier.border(
+        width = 2.dp, color = Color(PRIMARY_BORDER), shape = RoundedCornerShape(10.dp),
+    )
+    val unSelectedModifier = modifier.border(
+        width = 2.dp, color = Color(COACH_BORDER_SELECTED), shape = RoundedCornerShape(10.dp),
+    ).background(color = Color(COACH_BG_SELECTED))
+
     Box(
         modifier = if (!isSelected) {
-            modifier.border(
-                width = 2.dp, color = Color(PRIMARY_BORDER), shape = RoundedCornerShape(10.dp),
-            )
+            selectedModifier
         } else {
-            modifier.border(
-                width = 2.dp, color = Color(COACH_BORDER_SELECTED), shape = RoundedCornerShape(10.dp),
-            ).background(color = Color(COACH_BG_SELECTED))
+            unSelectedModifier
         }.clickable(
             onClick = onClick,
         ),

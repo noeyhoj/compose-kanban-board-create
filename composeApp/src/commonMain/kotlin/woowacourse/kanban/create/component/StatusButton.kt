@@ -27,16 +27,18 @@ fun StatusButton(
     isSelected: Boolean = false,
     onClick: () -> Unit,
 ) {
+    val selectedModifier = modifier.border(width = 2.dp, color = Color(PRIMARY_BORDER), shape = RoundedCornerShape(10.dp))
+    val unSelectedModifier = modifier.border(width = 2.dp, color = Color(STATUS_BORDER_SELECTED), shape = RoundedCornerShape(10.dp))
+        .background(Color(STATUS_BG_SELECTED))
     Box(
         modifier =
-        if (!isSelected) {
-            modifier.border(width = 2.dp, color = Color(PRIMARY_BORDER), shape = RoundedCornerShape(10.dp))
-        } else {
-            modifier.border(width = 2.dp, color = Color(STATUS_BORDER_SELECTED), shape = RoundedCornerShape(10.dp))
-                .background(Color(STATUS_BG_SELECTED))
-        }.clickable(
-            onClick = onClick,
-        ),
+            if (!isSelected) {
+                selectedModifier
+            } else {
+                unSelectedModifier
+            }.clickable(
+                onClick = onClick,
+            ),
         contentAlignment = Alignment.Center,
     ) {
         Text(
