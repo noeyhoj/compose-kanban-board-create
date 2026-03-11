@@ -107,7 +107,7 @@ fun TaskCreateDialog(modifier: Modifier = Modifier) {
                 onCreate = {
                     isTitleError = titleInputValue.isEmpty()
                     val tags = tagInputValue.split(",")
-                    isTagError = tags.size > 5 || tags.all { it.length > 5 }
+                    isTagError = tags.size > 5 || tags.any { it.length > 5 }
 
                     if (isTitleError) titleInputValue = ""
                     if (isTagError) tagInputValue = ""
