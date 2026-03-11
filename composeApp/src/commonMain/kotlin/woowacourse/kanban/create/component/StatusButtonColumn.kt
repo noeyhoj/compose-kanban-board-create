@@ -27,7 +27,7 @@ fun StatusButtonColumn(
         "Done",
     )
 
-    Column {
+    Column(modifier) {
         HeaderText(title = header)
         LazyVerticalGrid(
             columns = GridCells.Fixed(3),

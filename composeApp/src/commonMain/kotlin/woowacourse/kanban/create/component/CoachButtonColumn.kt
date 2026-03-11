@@ -26,7 +26,7 @@ fun CoachButtonColumn(
         "페임스",
     )
 
-    Column {
+    Column(modifier) {
         HeaderText(title = header)
         LazyVerticalGrid(
             columns = GridCells.Fixed(3),

@@ -43,7 +43,7 @@ fun TaskCreateDialog(modifier: Modifier = Modifier) {
         "페임스",
     )
 
-    Column(modifier = Modifier.background(color = Color.White).size(width = 672.dp, height = 900.dp)) {
+    Column(modifier = modifier.background(color = Color.White).size(width = 672.dp, height = 900.dp)) {
         DialogBar(
             modifier = Modifier.padding(
                 vertical = 28.dp,

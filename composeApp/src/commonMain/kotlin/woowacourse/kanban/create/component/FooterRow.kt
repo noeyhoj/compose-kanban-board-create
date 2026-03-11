@@ -28,7 +28,7 @@ fun FooterRow(
     onCreate: () -> Unit,
     isCreateError: Boolean,
 ) {
-    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
+    Row(modifier = modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
         FooterButton(
             modifier = Modifier,
             text = "취소",
