@@ -5,8 +5,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,7 +28,13 @@ fun TaskCreateDialog(modifier: Modifier = Modifier) {
         "In Progress",
         "Done",
     )
-    Column(modifier = Modifier.background(color = Color.White)) {
+
+    val names = listOf(
+        "다이노",
+        "페임스",
+    )
+
+    Column(modifier = Modifier.background(color = Color.White).size(width = 672.dp, height = 900.dp)) {
         DialogBar(
             modifier = Modifier.padding(
                 vertical = 28.dp,
@@ -62,17 +71,11 @@ fun TaskCreateDialog(modifier: Modifier = Modifier) {
                 header = "상태 *",
                 items = statuses,
             )
-
-            CommonButtonColumn(
+            CoachButtonColumn(
                 modifier = Modifier.fillMaxWidth(),
                 header = "담당자 *",
-                items = listOf(
-                    "다이노",
-                    "페임스",
-                ),
-            ) { item ->
-                CoachButton(name = item)
-            }
+                items = names,
+            )
             HorizontalDivider()
             FooterRow()
         }

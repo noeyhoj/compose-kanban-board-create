@@ -1,6 +1,8 @@
 package woowacourse.kanban.create.component
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -22,9 +24,24 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun CoachButton(
     modifier: Modifier = Modifier,
+    isSelected: Boolean,
     name: String,
+    onClick: () -> Unit,
 ) {
-    Box(modifier = modifier.border(width = 2.dp, color = Color(0xFFE5E7EB), shape = RoundedCornerShape(10.dp))) {
+    Box(
+        modifier = if (!isSelected) {
+            modifier.border(
+                width = 2.dp, color = Color(0xFFE5E7EB), shape = RoundedCornerShape(10.dp),
+            )
+        } else {
+            modifier.border(
+                width = 2.dp, color = Color(0xFF615FFF), shape = RoundedCornerShape(10.dp),
+            ).background(color = Color(0xFFEEF2FF))
+        }.clickable(
+            onClick = onClick,
+        ),
+
+    ) {
         Row(
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 20.dp),
             verticalAlignment = Alignment.CenterVertically,
