@@ -35,7 +35,7 @@ fun CoachButton(modifier: Modifier = Modifier, isSelected: Boolean, name: String
     )
     val selectedModifier = modifier.border(
         width = 2.dp, color = Color(COACH_BORDER_SELECTED), shape = RoundedCornerShape(10.dp),
-    ).background(color = Color(COACH_BG_SELECTED))
+    ).background(color = Color(COACH_BG_SELECTED), shape = RoundedCornerShape(10.dp))
 
     Box(
         modifier = if (!isSelected) {

@@ -26,7 +26,7 @@ import woowacourse.kanban.create.constant.STATUS_TEXT_SELECTED
 fun StatusButton(modifier: Modifier = Modifier, status: String, isSelected: Boolean = false, onClick: () -> Unit, index: Int) {
     val unSelectedModifier = modifier.border(width = 2.dp, color = Color(PRIMARY_BORDER), shape = RoundedCornerShape(10.dp))
     val selectedModifier = modifier.border(width = 2.dp, color = Color(STATUS_BORDER_SELECTED), shape = RoundedCornerShape(10.dp))
-        .background(Color(STATUS_BG_SELECTED))
+        .background(Color(STATUS_BG_SELECTED), shape = RoundedCornerShape(10.dp))
     Box(
         modifier =
         if (!isSelected) {
