@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -44,7 +46,8 @@ fun TaskCreateDialog(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .background(color = Color.White)
-            .size(width = 672.dp, height = 900.dp),
+            .size(width = 672.dp, height = 900.dp)
+            .verticalScroll(rememberScrollState()),
     ) {
         DialogBar(
             modifier = Modifier.padding(
