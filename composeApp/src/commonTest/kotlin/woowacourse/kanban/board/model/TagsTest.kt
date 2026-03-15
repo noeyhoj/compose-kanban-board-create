@@ -1,12 +1,9 @@
 package woowacourse.kanban.board.model
 
 import androidx.compose.ui.test.ExperimentalTestApi
-import org.assertj.core.api.Assertions.assertThat
 import kotlin.test.Test
-import org.junit.Assert
-import org.junit.Assert.assertEquals
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Assert.assertThrows
-import woowacourse.kanban.board.constant.ERROR_TAG
 
 @OptIn(ExperimentalTestApi::class)
 class TagsTest {
