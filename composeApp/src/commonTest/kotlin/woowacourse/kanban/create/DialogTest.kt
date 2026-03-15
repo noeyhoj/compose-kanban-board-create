@@ -1,3 +1,9 @@
+package woowacourse.kanban.create
+
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.onNodeWithTag
@@ -25,9 +31,15 @@ class DialogTest {
         )
 
         setContent {
+            var selectedStatusIndex by remember { mutableIntStateOf(0) }
+
             CommonButtonColumn(
                 header = "상태 *",
                 items = statuses,
+                selectedIndex = selectedStatusIndex,
+                onChangeValue = { index: Int ->
+                    selectedStatusIndex = index
+                },
             ) { status, isSelected, onClick, index ->
                 StatusButton(status = status, isSelected = isSelected, onClick = onClick, index = index)
             }
@@ -51,8 +63,14 @@ class DialogTest {
         )
 
         setContent {
+            var selectedNamesIndex by remember { mutableIntStateOf(0) }
+
             CommonButtonColumn(
                 header = "담당자",
+                selectedIndex = selectedNamesIndex,
+                onChangeValue = { index: Int ->
+                    selectedNamesIndex = index
+                },
                 items = names,
             ) { name, isSelected, onClick, index ->
                 CoachButton(name = name, isSelected = isSelected, onClick = onClick, index = index)
