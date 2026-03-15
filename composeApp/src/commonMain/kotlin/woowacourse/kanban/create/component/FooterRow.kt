@@ -22,12 +22,7 @@ import woowacourse.kanban.board.constant.CREATE_BG_ERROR
 import woowacourse.kanban.board.constant.PRIMARY_TEXT
 
 @Composable
-fun FooterRow(
-    modifier: Modifier = Modifier,
-    onCancel: () -> Unit,
-    onCreate: () -> Unit,
-    isCreateError: Boolean,
-) {
+fun FooterRow(modifier: Modifier = Modifier, onCancel: () -> Unit, onCreate: () -> Unit, isCreateError: Boolean) {
     Row(modifier = modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
         FooterButton(
             modifier = Modifier,
@@ -49,7 +44,7 @@ fun FooterRow(
 }
 
 @Composable
-fun FooterButton(
+private fun FooterButton(
     modifier: Modifier = Modifier,
     text: String,
     backgroundColor: Color,
@@ -66,7 +61,6 @@ fun FooterButton(
             )
             .clip(shape = RoundedCornerShape(10.dp))
             .background(backgroundColor).clickable(onClick = onClick, enabled = !enabled),
-
     ) {
         Text(text, color = textColor)
     }
