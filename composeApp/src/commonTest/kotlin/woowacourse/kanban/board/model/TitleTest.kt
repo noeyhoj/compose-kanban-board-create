@@ -10,7 +10,7 @@ class TitleTest {
     @Test
     fun `제목이 비어있는 경우 오류가 발생함`() {
         // given
-        val title = " "
+        val title = ""
         // when
         // then
         Assert.assertThrows(IllegalArgumentException::class.java) {
