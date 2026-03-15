@@ -11,13 +11,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter.Companion.tint
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import woowacourse.kanban.board.constant.CLOSE_ICON_TINT
-import woowacourse.kanban.board.constant.HEADER_TEXT
+import woowacourse.kanban.create.constant.CLOSE_ICON_TINT
+import woowacourse.kanban.create.constant.HEADER_TEXT
 
 @Preview(showBackground = true)
 @Composable

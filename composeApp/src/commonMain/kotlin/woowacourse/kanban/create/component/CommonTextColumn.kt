@@ -26,10 +26,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import woowacourse.kanban.board.constant.TEXT_FIELD_BORDER
-import woowacourse.kanban.board.constant.TEXT_FIELD_ERROR
-import woowacourse.kanban.board.constant.TEXT_FIELD_HINT
-import woowacourse.kanban.board.constant.TEXT_FIELD_PLACEHOLDER
+import woowacourse.kanban.create.constant.TEXT_FIELD_BORDER
+import woowacourse.kanban.create.constant.TEXT_FIELD_ERROR
+import woowacourse.kanban.create.constant.TEXT_FIELD_HINT
+import woowacourse.kanban.create.constant.TEXT_FIELD_PLACEHOLDER
 
 @Composable
 fun CommonTextColumn(
