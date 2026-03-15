@@ -83,19 +83,21 @@ fun TaskCreateDialog(modifier: Modifier = Modifier) {
                 value = contentInputValue,
                 onChangeValue = { newTextValue -> contentInputValue = newTextValue },
             )
-            CommonTextColumn(
-                modifier = Modifier,
-                title = "태그",
-                placeHolder = "태그를 쉼표로 구분하여 입력하세요 (예: 버그, 긴급)",
-                height = 44.dp,
-                hintText = "5자 이내의 태그를 최대 5개까지 등록할 수 있습니다.",
-                value = tagInputValue,
-                onChangeValue = { newTextValue ->
-                    tagInputValue = newTextValue
-                    if (isTagError) isTagError = false
-                },
-                isError = isTagError,
-            )
+            Column {
+                CommonTextColumn(
+                    modifier = Modifier,
+                    title = "태그",
+                    placeHolder = "태그를 쉼표로 구분하여 입력하세요 (예: 버그, 긴급)",
+                    height = 44.dp,
+                    value = tagInputValue,
+                    onChangeValue = { newTextValue ->
+                        tagInputValue = newTextValue
+                        if (isTagError) isTagError = false
+                    },
+                    isError = isTagError,
+                )
+                ErrorHintText(isError = isTagError)
+            }
             CommonButtonColumn(
                 header = "상태 *",
                 items = statuses,
