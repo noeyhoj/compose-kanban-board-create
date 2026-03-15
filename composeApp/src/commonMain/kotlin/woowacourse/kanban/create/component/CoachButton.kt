@@ -28,31 +28,25 @@ import woowacourse.kanban.board.constant.PRIMARY_BORDER
 import woowacourse.kanban.board.constant.PRIMARY_SUB_TEXT
 
 @Composable
-fun CoachButton(
-    modifier: Modifier = Modifier,
-    isSelected: Boolean,
-    name: String,
-    onClick: () -> Unit,
-    index: Int,
-) {
-    val selectedModifier = modifier.border(
+fun CoachButton(modifier: Modifier = Modifier, isSelected: Boolean, name: String, onClick: () -> Unit, index: Int) {
+    val unSelectedModifier = modifier.border(
         width = 2.dp, color = Color(PRIMARY_BORDER), shape = RoundedCornerShape(10.dp),
     )
-    val unSelectedModifier = modifier.border(
+    val selectedModifier = modifier.border(
         width = 2.dp, color = Color(COACH_BORDER_SELECTED), shape = RoundedCornerShape(10.dp),
     ).background(color = Color(COACH_BG_SELECTED))
 
     Box(
         modifier = if (!isSelected) {
-            selectedModifier
-        } else {
             unSelectedModifier
-        }.clickable(
-            onClick = onClick,
-        ).testTag(
-            tag = if (isSelected) "selected$index" else "unselected$index",
-        ),
-
+        } else {
+            selectedModifier
+        }
+            .clickable(
+                onClick = onClick,
+            ).testTag(
+                tag = if (isSelected) "selected$index" else "unselected$index",
+            ),
     ) {
         Row(
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 20.dp),
