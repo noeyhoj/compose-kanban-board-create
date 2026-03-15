@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -37,13 +38,19 @@ fun TaskCreateDialog(modifier: Modifier = Modifier) {
         "In Progress",
         "Done",
     )
+    var selectedStatusIndex: Int by remember { mutableIntStateOf(0) }
 
     val names = listOf(
         "다이노",
         "페임스",
     )
+    var selectedNamesIndex: Int by remember { mutableIntStateOf(0) }
 
-    Column(modifier = modifier.background(color = Color.White).size(width = 672.dp, height = 900.dp)) {
+    Column(
+        modifier = modifier
+            .background(color = Color.White)
+            .size(width = 672.dp, height = 900.dp),
+    ) {
         DialogBar(
             modifier = Modifier.padding(
                 vertical = 28.dp,
@@ -92,12 +99,18 @@ fun TaskCreateDialog(modifier: Modifier = Modifier) {
             CommonButtonColumn(
                 header = "상태 *",
                 items = statuses,
+                selectedIndex = selectedStatusIndex,
+                onChangeValue = { index: Int ->
+                    selectedStatusIndex = index
+                },
             ) { status, isSelected, onClick, index ->
                 StatusButton(status = status, isSelected = isSelected, onClick = onClick, index = index)
             }
             CommonButtonColumn(
                 header = "담당자 *",
                 items = names,
+                selectedIndex = selectedNamesIndex,
+                onChangeValue = { index: Int -> selectedNamesIndex = index },
             ) { name, isSelected, onClick, index ->
                 CoachButton(name = name, isSelected = isSelected, onClick = onClick, index = index)
             }
