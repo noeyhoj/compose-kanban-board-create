@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import woowacourse.kanban.create.constant.COACH_BG_SELECTED
@@ -57,4 +58,16 @@ fun CoachButton(modifier: Modifier = Modifier, isSelected: Boolean, name: String
             Text(name, fontWeight = FontWeight.W500, fontSize = 14.sp, color = Color(PRIMARY_SUB_TEXT))
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun SelectedCoachButtonPreview() {
+    CoachButton(name = "다이노", isSelected = true, onClick = {}, index = 0)
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun UnSelectedCoachButtonPreview() {
+    CoachButton(name = "페임스", isSelected = false, onClick = {}, index = 0)
 }

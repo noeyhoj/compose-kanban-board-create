@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
@@ -32,4 +33,30 @@ fun CommonTextColumn(
             onChangeValue = onChangeValue,
         )
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun TitleCommonTextColumnPreview() {
+    CommonTextColumn(
+        title = "제목 *",
+        placeHolder = "태스크 제목을 입력하세요",
+        height = 48.dp,
+        value = "",
+        onChangeValue = {},
+        isError = false,
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun TagCommonTextColumnPreview() {
+    CommonTextColumn(
+        title = "제목 *",
+        placeHolder = "태스크 제목을 입력하세요",
+        height = 48.dp,
+        value = "",
+        onChangeValue = {},
+        isError = false,
+    )
 }

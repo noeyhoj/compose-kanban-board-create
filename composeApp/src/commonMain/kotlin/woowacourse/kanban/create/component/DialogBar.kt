@@ -18,7 +18,6 @@ import androidx.compose.ui.unit.sp
 import woowacourse.kanban.create.constant.CLOSE_ICON_TINT
 import woowacourse.kanban.create.constant.HEADER_TEXT
 
-@Preview(showBackground = true)
 @Composable
 fun DialogBar(modifier: Modifier = Modifier) {
     Row(
@@ -34,4 +33,10 @@ fun DialogBar(modifier: Modifier = Modifier) {
             tint = Color(CLOSE_ICON_TINT),
         )
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun DialogBarPreview() {
+    DialogBar()
 }

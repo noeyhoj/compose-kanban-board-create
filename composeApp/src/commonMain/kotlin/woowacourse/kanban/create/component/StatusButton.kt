@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import woowacourse.kanban.create.constant.PRIMARY_BORDER
@@ -51,4 +52,16 @@ fun StatusButton(modifier: Modifier = Modifier, status: String, isSelected: Bool
             },
         )
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun SelectedStatusButtonPreview() {
+    StatusButton(status = "To Do", isSelected = true, onClick = {}, index = 0)
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun UnSelectedStatusButtonPreview() {
+    StatusButton(status = "In Progress", onClick = {}, index = 0)
 }

@@ -20,11 +20,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-@Preview(
-    showBackground = true,
-    widthDp = 672,
-    heightDp = 900,
-)
 fun TaskCreateDialog(modifier: Modifier = Modifier) {
     var titleInputValue by remember { mutableStateOf("") }
     var contentInputValue by remember { mutableStateOf("") }
@@ -131,4 +126,14 @@ fun TaskCreateDialog(modifier: Modifier = Modifier) {
             )
         }
     }
+}
+
+@Preview(
+    showBackground = true,
+    widthDp = 672,
+    heightDp = 900,
+)
+@Composable
+private fun TaskCreateDialogPreview() {
+    TaskCreateDialog()
 }
