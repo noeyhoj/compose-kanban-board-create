@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -14,21 +15,25 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import woowacourse.kanban.board.model.BoardData
+import woowacourse.kanban.board.model.Nickname
+import woowacourse.kanban.board.model.Tags
+import woowacourse.kanban.board.model.Title
 
 @Composable
 fun TaskCreateDialog(modifier: Modifier = Modifier) {
     var titleInputValue by remember { mutableStateOf("") }
     var contentInputValue by remember { mutableStateOf("") }
-    var tagInputValue by remember { mutableStateOf("") }
+    var tagsInputValue by rememberSaveable { mutableStateOf("") }
 
-    var isTitleError by remember { mutableStateOf(false) }
-    var isTagError by remember { mutableStateOf(false) }
+    var isTitleError by rememberSaveable { mutableStateOf(false) }
+    var isTagsError by rememberSaveable { mutableStateOf(false) }
 
     val statuses = listOf(
         "To Do",
@@ -62,40 +67,39 @@ fun TaskCreateDialog(modifier: Modifier = Modifier) {
             verticalArrangement = Arrangement.spacedBy(24.dp),
         ) {
             CommonTextColumn(
+                modifier = Modifier.fillMaxWidth(),
                 title = "제목 *",
-                placeHolder = "태스크 제목을 입력하세요",
-                height = 48.dp,
-                value = titleInputValue,
-                onChangeValue = { newTextValue ->
-                    titleInputValue = newTextValue
-                    if (isTitleError) isTitleError = false
+                content = titleInputValue,
+                onValueChange = { value: String ->
+                    titleInputValue = value
+                    isTitleError = titleInputValue.isBlank()
                 },
                 isError = isTitleError,
+                placeholderText = "태스크 제목을 입력하세요",
             )
             CommonTextColumn(
-                modifier = Modifier,
+                modifier = Modifier.fillMaxWidth().height(116.dp),
                 title = "설명",
-                placeHolder = "태스크에 대한 자세한 설명을 입력하세요",
-                height = 116.dp,
-                placeHolderAlignment = Alignment.TopStart,
-                value = contentInputValue,
-                onChangeValue = { newTextValue -> contentInputValue = newTextValue },
+                content = contentInputValue,
+                onValueChange = { value: String ->
+                    contentInputValue = value
+                },
+                placeholderText = "태스크에 대한 자세한 설명을 입력하세요",
             )
-            Column {
-                CommonTextColumn(
-                    modifier = Modifier,
-                    title = "태그",
-                    placeHolder = "태그를 쉼표로 구분하여 입력하세요 (예: 버그, 긴급)",
-                    height = 44.dp,
-                    value = tagInputValue,
-                    onChangeValue = { newTextValue ->
-                        tagInputValue = newTextValue
-                        if (isTagError) isTagError = false
-                    },
-                    isError = isTagError,
-                )
-                ErrorHintText(isError = isTagError)
-            }
+            CommonTextColumn(
+                modifier = Modifier.fillMaxWidth(),
+                title = "태그 *",
+                content = tagsInputValue,
+                onValueChange = { value: String ->
+                    tagsInputValue = value
+                    val tags = if (tagsInputValue.isNotEmpty()) tagsInputValue.split(",") else emptyList()
+                    isTagsError = tags.any { it.length > 5 || it.isBlank() } || tags.size > 5
+                    println(tags.size)
+                },
+                isError = isTagsError,
+                placeholderText = "태그를 쉼표로 구분하여 입력하세요 (예: 버그, 긴급)",
+                isSupportingText = true,
+            )
             CommonButtonColumn(
                 header = "상태 *",
                 items = statuses,
@@ -118,14 +122,15 @@ fun TaskCreateDialog(modifier: Modifier = Modifier) {
             FooterRow(
                 onCancel = { },
                 onCreate = {
-                    isTitleError = titleInputValue.isEmpty()
-                    val tags = tagInputValue.split(",")
-                    isTagError = tags.size > 5 || tags.any { it.length > 5 }
-
-                    if (isTitleError) titleInputValue = ""
-                    if (isTagError) tagInputValue = ""
+                    val boardData = BoardData(
+                        title = Title(titleInputValue),
+                        content = contentInputValue,
+                        tags = Tags(tagsInputValue.split(",")),
+                        nickname = Nickname(names[selectedNamesIndex]),
+                    )
+                    println(boardData)
                 },
-                isCreateError = isTitleError || isTagError,
+                isCreateError = isTitleError || isTagsError,
             )
         }
     }

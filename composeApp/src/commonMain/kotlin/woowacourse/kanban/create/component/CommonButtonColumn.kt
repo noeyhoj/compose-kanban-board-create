@@ -3,7 +3,6 @@ package woowacourse.kanban.create.component
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -28,7 +27,7 @@ fun CommonButtonColumn(
             columns = GridCells.Fixed(3),
             modifier = Modifier.fillMaxWidth().heightIn(max = 100.dp),
             horizontalArrangement = Arrangement.spacedBy(12.dp),
-            userScrollEnabled = false
+            userScrollEnabled = false,
         ) {
             items(
                 items.size,
