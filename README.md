@@ -87,3 +87,18 @@
 - [x]  require 동작 확인
 - [x]  패키지명 확인
 - [x]  성공하는 테스트 추가 권장
+
+---
+
+# 2차 피드백 목록
+
+- [ ] Modifier를 가이드 라인에 맞게 파라미터로 넘기기
+- [ ] 실패하는 DialogTest 고치기
+- [ ] FooterRow를 더 간단하게 변경하기
+- [ ] 초기 상태에서 생성 버튼을 눌렀을 때 발생하는 버그 해결하기
+- [ ] 디버깅용 코드 지우기
+- [ ] TaskCreateDialog 생성 버튼 로직 수정하기
+- [ ] CommonButtonColumn의 selectedIndex 변수 수정하기
+- [ ] BoardPreviewParameterProvider의 가시성 수정하기
+- [ ] testTag를 사용한 테스트 코드 개선하기
+- [ ] TagsComponent를 코틀린스럽게 변경하기
