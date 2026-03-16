@@ -99,6 +99,6 @@
 - [x] 디버깅용 코드 지우기
 - [ ] TaskCreateDialog 생성 버튼 로직 수정하기
 - [ ] CommonButtonColumn의 selectedIndex 변수 수정하기
-- [ ] BoardPreviewParameterProvider의 가시성 수정하기
+- [x] BoardPreviewParameterProvider의 가시성 수정하기
 - [ ] testTag를 사용한 테스트 코드 개선하기
 - [ ] TagsComponent를 코틀린스럽게 변경하기

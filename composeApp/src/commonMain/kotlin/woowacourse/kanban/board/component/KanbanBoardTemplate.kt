@@ -62,7 +62,7 @@ fun KanbanBoardTemplate(board: BoardData) {
     }
 }
 
-class BoardPreviewParameterProvider : PreviewParameterProvider<BoardData> {
+private class BoardPreviewParameterProvider : PreviewParameterProvider<BoardData> {
     override val values = sequenceOf(
         BoardData(
             title = Title(DEFAULT_TITLE),
