@@ -18,7 +18,7 @@ fun TagsComponent(tags: Tags, modifier: Modifier = Modifier) {
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalArrangement = Arrangement.spacedBy(4.dp),
     ) {
-        for (tag in tags.tags) {
+        tags.tags.forEach { tag ->
             Tag(
                 tag,
                 modifier = Modifier

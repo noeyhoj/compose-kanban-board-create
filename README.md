@@ -101,4 +101,4 @@
 - [ ] CommonButtonColumn의 selectedIndex 변수 수정하기
 - [x] BoardPreviewParameterProvider의 가시성 수정하기
 - [ ] testTag를 사용한 테스트 코드 개선하기
-- [ ] TagsComponent를 코틀린스럽게 변경하기
+- [x] TagsComponent를 코틀린스럽게 변경하기
