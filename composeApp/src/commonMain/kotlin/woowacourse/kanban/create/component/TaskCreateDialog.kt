@@ -94,7 +94,6 @@ fun TaskCreateDialog(modifier: Modifier = Modifier) {
                     tagsInputValue = value
                     val tags = if (tagsInputValue.isNotEmpty()) tagsInputValue.split(",") else emptyList()
                     isTagsError = tags.any { it.length > 5 || it.isBlank() } || tags.size > 5
-                    println(tags.size)
                 },
                 isError = isTagsError,
                 placeholderText = "태그를 쉼표로 구분하여 입력하세요 (예: 버그, 긴급)",
