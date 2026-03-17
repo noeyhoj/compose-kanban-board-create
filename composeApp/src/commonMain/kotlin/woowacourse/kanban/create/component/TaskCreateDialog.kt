@@ -25,6 +25,14 @@ import woowacourse.kanban.board.model.BoardData
 import woowacourse.kanban.board.model.Nickname
 import woowacourse.kanban.board.model.Tags
 import woowacourse.kanban.board.model.Title
+import woowacourse.kanban.create.model.Status
+
+val statuses = Status.entries
+
+val names = listOf(
+    Nickname("다이노"),
+    Nickname("페임스"),
+)
 
 @Composable
 fun TaskCreateDialog(modifier: Modifier = Modifier) {
@@ -35,17 +43,7 @@ fun TaskCreateDialog(modifier: Modifier = Modifier) {
     var isTitleError by rememberSaveable { mutableStateOf(false) }
     var isTagsError by rememberSaveable { mutableStateOf(false) }
 
-    val statuses = listOf(
-        "To Do",
-        "In Progress",
-        "Done",
-    )
     var selectedStatusIndex: Int by remember { mutableIntStateOf(0) }
-
-    val names = listOf(
-        "다이노",
-        "페임스",
-    )
     var selectedNamesIndex: Int by remember { mutableIntStateOf(0) }
 
     Column(
@@ -103,7 +101,7 @@ fun TaskCreateDialog(modifier: Modifier = Modifier) {
             )
             CommonButtonColumn(
                 header = "상태 *",
-                items = statuses,
+                items = statuses.map { it.state },
                 selectedIndex = selectedStatusIndex,
                 onChangeValue = { index: Int ->
                     selectedStatusIndex = index
@@ -113,7 +111,7 @@ fun TaskCreateDialog(modifier: Modifier = Modifier) {
             }
             CommonButtonColumn(
                 header = "담당자 *",
-                items = names,
+                items = names.map { it.nickname },
                 selectedIndex = selectedNamesIndex,
                 onChangeValue = { index: Int -> selectedNamesIndex = index },
             ) { name, isSelected, onClick, index ->
@@ -130,9 +128,9 @@ fun TaskCreateDialog(modifier: Modifier = Modifier) {
                             title = Title(titleInputValue),
                             content = contentInputValue,
                             tags = Tags(tagsInputValue.split(",")),
-                            nickname = Nickname(names[selectedNamesIndex]),
+                            nickname = names[selectedNamesIndex],
                         )
-                        println(boardData.tags.tags)
+                        println(boardData)
                     }
                 },
                 isCreateError = isTitleError || isTagsError,
