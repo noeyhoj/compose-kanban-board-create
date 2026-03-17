@@ -103,3 +103,4 @@
 - [x] BoardPreviewParameterProvider의 가시성 수정하기
 - [ ] testTag를 사용한 테스트 코드 개선하기
 - [x] TagsComponent를 코틀린스럽게 변경하기
+- [x] 태그에 빈 공간을 넣었을 때 오류가 발생하도록 기능 추가

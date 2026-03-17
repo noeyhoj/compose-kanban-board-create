@@ -93,7 +93,9 @@ fun TaskCreateDialog(modifier: Modifier = Modifier) {
                 onValueChange = { value: String ->
                     tagsInputValue = value
                     val tags = if (tagsInputValue.isNotEmpty()) tagsInputValue.split(",") else emptyList()
-                    isTagsError = tags.any { it.length > 5 || it.isBlank() } || tags.size > 5
+                    isTagsError =
+                        tags.any { it.length > 5 || it.isBlank() || it.split("").count { value -> value == " " } > 0 } ||
+                        tags.size > 5
                 },
                 isError = isTagsError,
                 placeholderText = "태그를 쉼표로 구분하여 입력하세요 (예: 버그, 긴급)",
@@ -130,7 +132,7 @@ fun TaskCreateDialog(modifier: Modifier = Modifier) {
                             tags = Tags(tagsInputValue.split(",")),
                             nickname = Nickname(names[selectedNamesIndex]),
                         )
-                        println(boardData)
+                        println(boardData.tags.tags)
                     }
                 },
                 isCreateError = isTitleError || isTagsError,
