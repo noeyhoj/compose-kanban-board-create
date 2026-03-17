@@ -37,9 +37,9 @@ fun FooterRow(onCancel: () -> Unit, onCreate: () -> Unit, isCreateError: Boolean
             modifier = Modifier,
             text = "생성",
             textColor = Color.White,
-            backgroundColor = if (isCreateError) Color(CREATE_BG_ERROR) else Color(CREATE_BG),
+            backgroundColor = if (!isCreateError) Color(CREATE_BG) else Color(CREATE_BG_ERROR),
             onClick = onCreate,
-            enabled = isCreateError,
+            enabled = !isCreateError,
         )
     }
 }
@@ -61,7 +61,7 @@ private fun FooterButton(
                 height = 44.dp,
             )
             .clip(shape = RoundedCornerShape(10.dp))
-            .background(backgroundColor).clickable(onClick = onClick, enabled = !enabled),
+            .background(backgroundColor).clickable(onClick = onClick, enabled = enabled),
     ) {
         Text(text, color = textColor)
     }
