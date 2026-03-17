@@ -96,9 +96,9 @@
 - [x] require 내부 코드 확인
 - [x] 실패하는 DialogTest 고치기
 - [x] FooterRow를 더 간단하게 변경하기
-- [ ] 초기 상태에서 생성 버튼을 눌렀을 때 발생하는 버그 해결하기
+- [x] 초기 상태에서 생성 버튼을 눌렀을 때 발생하는 버그 해결하기
 - [x] 디버깅용 코드 지우기
-- [ ] Composable 함수 안에서 관리되는 객체 문제 해결하기 
+- [ ] Composable 함수 안에서 관리되는 객체 문제 해결하기
 - [x] CommonButtonColumn의 selectedIndex 변수 수정하기
 - [x] BoardPreviewParameterProvider의 가시성 수정하기
 - [ ] testTag를 사용한 테스트 코드 개선하기

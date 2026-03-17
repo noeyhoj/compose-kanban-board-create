@@ -121,13 +121,17 @@ fun TaskCreateDialog(modifier: Modifier = Modifier) {
             FooterRow(
                 onCancel = { },
                 onCreate = {
-                    val boardData = BoardData(
-                        title = Title(titleInputValue),
-                        content = contentInputValue,
-                        tags = Tags(tagsInputValue.split(",")),
-                        nickname = Nickname(names[selectedNamesIndex]),
-                    )
-                    println(boardData)
+                    if (titleInputValue.isBlank()) {
+                        isTitleError = true
+                    } else {
+                        val boardData = BoardData(
+                            title = Title(titleInputValue),
+                            content = contentInputValue,
+                            tags = Tags(tagsInputValue.split(",")),
+                            nickname = Nickname(names[selectedNamesIndex]),
+                        )
+                        println(boardData)
+                    }
                 },
                 isCreateError = isTitleError || isTagsError,
             )
