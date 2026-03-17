@@ -29,7 +29,7 @@ import woowacourse.kanban.create.constant.PRIMARY_BORDER
 import woowacourse.kanban.create.constant.PRIMARY_SUB_TEXT
 
 @Composable
-fun CoachButton(modifier: Modifier = Modifier, isSelected: Boolean, name: String, onClick: () -> Unit, index: Int) {
+fun CoachButton(isSelected: Boolean, name: String, onClick: () -> Unit, index: Int, modifier: Modifier = Modifier) {
     val unSelectedModifier = modifier.border(
         width = 2.dp, color = Color(PRIMARY_BORDER), shape = RoundedCornerShape(10.dp),
     )

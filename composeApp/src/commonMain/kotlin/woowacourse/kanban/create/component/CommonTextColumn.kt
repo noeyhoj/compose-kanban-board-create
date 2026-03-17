@@ -22,12 +22,12 @@ import woowacourse.kanban.create.constant.TEXT_FIELD_ERROR
 
 @Composable
 fun CommonTextColumn(
-    modifier: Modifier = Modifier,
     title: String,
     content: String,
     onValueChange: (String) -> Unit,
-    isError: Boolean = false,
     placeholderText: String,
+    modifier: Modifier = Modifier,
+    isError: Boolean = false,
     isSupportingText: Boolean = false,
 ) {
     Column {

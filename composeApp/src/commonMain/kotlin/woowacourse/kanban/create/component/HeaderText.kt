@@ -10,7 +10,7 @@ import androidx.compose.ui.unit.sp
 import woowacourse.kanban.create.constant.HEADER_TEXT
 
 @Composable
-fun HeaderText(modifier: Modifier = Modifier, title: String) {
+fun HeaderText(title: String, modifier: Modifier = Modifier) {
     Text(title, fontWeight = FontWeight.W500, fontSize = 14.sp, color = Color(HEADER_TEXT), modifier = modifier)
 }
 

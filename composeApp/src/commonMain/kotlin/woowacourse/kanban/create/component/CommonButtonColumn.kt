@@ -13,11 +13,11 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun CommonButtonColumn(
-    modifier: Modifier = Modifier,
     header: String,
     items: List<String>,
     selectedIndex: Int,
     onChangeValue: (Int) -> Unit,
+    modifier: Modifier = Modifier,
     composable: @Composable (String, Boolean, () -> Unit, Int) -> Unit,
 ) {
     Column(modifier) {

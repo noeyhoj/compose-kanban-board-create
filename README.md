@@ -92,7 +92,7 @@
 
 # 2차 피드백 목록
 
-- [ ] Modifier를 가이드 라인에 맞게 파라미터로 넘기기
+- [x] Modifier를 가이드 라인에 맞게 파라미터로 넘기기
 - [x] require 내부 코드 확인
 - [x] 실패하는 DialogTest 고치기
 - [ ] FooterRow를 더 간단하게 변경하기
