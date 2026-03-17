@@ -10,11 +10,9 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun Tag(content: String, modifier: Modifier = Modifier) {
-    val maxLength = 5
-
     Box(
         modifier = modifier,
     ) {
-        Text(content.take(maxLength), modifier = Modifier.padding(6.dp), fontSize = 10.sp)
+        Text(content, modifier = Modifier.padding(6.dp), fontSize = 10.sp)
     }
 }
