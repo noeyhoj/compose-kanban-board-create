@@ -132,9 +132,7 @@ class DialogTest {
         waitForIdle()
         onNodeWithText("태스크 제목을 입력하세요").performTextInput("제목")
         waitForIdle()
-        onNodeWithText("생성").performClick()
-        waitForIdle()
         // then
-        onNodeWithText("이건,,,,올바르지 않은 형식입니다,,,,,,,,,").assertExists()
+        onNodeWithText("태그 형식이 올바르지 않습니다.").assertExists()
     }
 }
