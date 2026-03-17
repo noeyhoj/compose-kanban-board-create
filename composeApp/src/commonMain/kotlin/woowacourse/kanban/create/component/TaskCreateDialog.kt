@@ -14,7 +14,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -36,15 +35,15 @@ val names = listOf(
 
 @Composable
 fun TaskCreateDialog(modifier: Modifier = Modifier) {
-    var titleInputValue by remember { mutableStateOf("") }
-    var contentInputValue by remember { mutableStateOf("") }
+    var titleInputValue by rememberSaveable { mutableStateOf("") }
+    var contentInputValue by rememberSaveable { mutableStateOf("") }
     var tagsInputValue by rememberSaveable { mutableStateOf("") }
 
     var isTitleError by rememberSaveable { mutableStateOf(false) }
     var isTagsError by rememberSaveable { mutableStateOf(false) }
 
-    var selectedStatusIndex: Int by remember { mutableIntStateOf(0) }
-    var selectedNamesIndex: Int by remember { mutableIntStateOf(0) }
+    var selectedStatusIndex: Int by rememberSaveable { mutableIntStateOf(0) }
+    var selectedNamesIndex: Int by rememberSaveable { mutableIntStateOf(0) }
 
     Column(
         modifier = modifier
