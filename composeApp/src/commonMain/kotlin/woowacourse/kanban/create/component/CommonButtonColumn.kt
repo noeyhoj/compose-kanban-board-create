@@ -20,7 +20,6 @@ fun CommonButtonColumn(
     onChangeValue: (Int) -> Unit,
     composable: @Composable (String, Boolean, () -> Unit, Int) -> Unit,
 ) {
-    val selectedIndex = selectedIndex
     Column(modifier) {
         HeaderText(title = header)
         LazyVerticalGrid(
