@@ -1,4 +1,4 @@
-package woowacourse.kanban.create.component
+package woowacourse.kanban.board.component.dialog
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -18,9 +18,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import woowacourse.kanban.create.constant.CREATE_BG
-import woowacourse.kanban.create.constant.CREATE_BG_ERROR
-import woowacourse.kanban.create.constant.PRIMARY_TEXT
+import woowacourse.kanban.board.constant.CREATE_BG
+import woowacourse.kanban.board.constant.CREATE_BG_ERROR
+import woowacourse.kanban.board.constant.PRIMARY_TEXT
 
 @Composable
 fun FooterRow(onCancel: () -> Unit, onCreate: () -> Unit, isCreateError: Boolean, modifier: Modifier = Modifier) {

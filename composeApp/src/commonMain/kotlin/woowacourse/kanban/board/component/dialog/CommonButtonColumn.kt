@@ -1,4 +1,4 @@
-package woowacourse.kanban.create.component
+package woowacourse.kanban.board.component.dialog
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

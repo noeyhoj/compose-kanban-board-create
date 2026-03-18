@@ -1,4 +1,4 @@
-package woowacourse.kanban.create.component
+package woowacourse.kanban.board.component.dialog
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -15,8 +15,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import woowacourse.kanban.create.constant.CLOSE_ICON_TINT
-import woowacourse.kanban.create.constant.HEADER_TEXT
+import woowacourse.kanban.board.constant.CLOSE_ICON_TINT
+import woowacourse.kanban.board.constant.HEADER_TEXT
 
 @Composable
 fun DialogBar(modifier: Modifier = Modifier) {

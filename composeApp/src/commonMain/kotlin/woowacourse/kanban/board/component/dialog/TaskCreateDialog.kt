@@ -1,4 +1,4 @@
-package woowacourse.kanban.create.component
+package woowacourse.kanban.board.component.dialog
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -24,7 +24,7 @@ import woowacourse.kanban.board.model.BoardData
 import woowacourse.kanban.board.model.Nickname
 import woowacourse.kanban.board.model.Tags
 import woowacourse.kanban.board.model.Title
-import woowacourse.kanban.create.model.Status
+import woowacourse.kanban.board.model.Status
 
 val statuses = Status.entries
 
