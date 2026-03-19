@@ -35,17 +35,15 @@ fun App() {
 
     val titleOnValueChange = { value: String ->
         titleInputValue = value
-        isTitleError = titleInputValue.isBlank()
+        isTitleError = BoardData.isTitleError(titleInputValue)
     }
     val contentOnValueChange = { value: String ->
         contentInputValue = value
     }
     val tagsOnValueChange = { value: String ->
         tagsInputValue = value
-        val tags = if (tagsInputValue.isNotEmpty()) tagsInputValue.split(",") else emptyList()
-        isTagsError =
-            tags.any { it.length > 5 || it.isBlank() || it.split("").count { value -> value == " " } > 0 } ||
-            tags.size > 5
+        val tags = if (tagsInputValue.isNotEmpty()) tagsInputValue.split(",").map { Tag(it) } else emptyList()
+        isTagsError = tags.any { Tag.isTagError(it) } || BoardData.isTagsError(tags)
     }
     val statusOnValueChange = { index: Int ->
         selectedStatusIndex = index

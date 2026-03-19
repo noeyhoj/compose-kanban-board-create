@@ -6,4 +6,8 @@ data class Tag(val text: String) {
         require(text.length <= maxTagLength) { "[ERROR] 태그의 글자수는 ${maxTagLength}글자 이하여야 합니다." }
         require(text.all { it.toString().isNotBlank() }) { "[ERROR] 태그에 공백이 존재하면 안됩니다." }
     }
+
+    companion object {
+        fun isTagError(tag: Tag): Boolean = tag.text.length > 5 || tag.text.isBlank() || tag.text.count { it.toString().isBlank() } > 0
+    }
 }
