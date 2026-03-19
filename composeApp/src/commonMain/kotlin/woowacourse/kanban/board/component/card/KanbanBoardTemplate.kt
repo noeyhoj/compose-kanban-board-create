@@ -23,9 +23,8 @@ import woowacourse.kanban.board.constant.MAX_CONTENT
 import woowacourse.kanban.board.constant.MAX_NAME
 import woowacourse.kanban.board.constant.MAX_TITLE
 import woowacourse.kanban.board.model.BoardData
-import woowacourse.kanban.board.model.Nickname
-import woowacourse.kanban.board.model.Tags
-import woowacourse.kanban.board.model.Title
+import woowacourse.kanban.board.model.Status
+import woowacourse.kanban.board.model.Tag
 
 @Composable
 fun KanbanBoardTemplate(board: BoardData) {
@@ -44,12 +43,12 @@ fun KanbanBoardTemplate(board: BoardData) {
             Title(title = board.title, modifier = Modifier.padding(vertical = 8.dp).testTag("제목"))
 
             // 중간 내용
-            if (board.content.isNotBlank()) {
-                Content(content = board.content, modifier = Modifier.padding(vertical = 4.dp).testTag("중간내용"))
+            if (board.description.isNotBlank()) {
+                Content(content = board.description, modifier = Modifier.padding(vertical = 4.dp).testTag("중간내용"))
             }
 
             // 태그
-            if (board.tags.tags.isNotEmpty()) {
+            if (board.tags.isNotEmpty()) {
                 TagsComponent(tags = board.tags, modifier = Modifier.padding(vertical = 8.dp).testTag("테그목록"))
             }
 
@@ -65,32 +64,35 @@ fun KanbanBoardTemplate(board: BoardData) {
 private class BoardPreviewParameterProvider : PreviewParameterProvider<BoardData> {
     override val values = sequenceOf(
         BoardData(
-            title = Title(DEFAULT_TITLE),
-            content = DEFAULT_CONTENT,
-            tags = Tags(listOf("컴포넌트", "성능")),
-            nickname = Nickname(DEFAULT_NAME),
+            title = DEFAULT_TITLE,
+            description = DEFAULT_CONTENT,
+            tags = listOf(Tag("컴포넌트"), Tag("성능")),
+            status = Status.TODO,
+            nickname = DEFAULT_NAME,
         ),
         BoardData(
-            title = Title(DEFAULT_TITLE),
-            tags = Tags(listOf("컴포넌트", "성능")),
-            nickname = Nickname(DEFAULT_NAME),
+            title = DEFAULT_TITLE,
+            tags = listOf(Tag("컴포넌트"), Tag("성능")),
+            status = Status.TODO,
+            nickname = DEFAULT_NAME,
         ),
         BoardData(
-            title = Title(DEFAULT_TITLE),
-            content = DEFAULT_CONTENT,
-            tags = Tags(),
-            nickname = Nickname(DEFAULT_NAME),
+            title = DEFAULT_TITLE,
+            description = DEFAULT_CONTENT,
+            status = Status.TODO,
+            nickname = DEFAULT_NAME,
         ),
         BoardData(
-            title = Title(DEFAULT_TITLE),
-            tags = Tags(),
-            nickname = Nickname(DEFAULT_NAME),
+            title = DEFAULT_TITLE,
+            status = Status.TODO,
+            nickname = DEFAULT_NAME,
         ),
         BoardData(
-            title = Title(MAX_TITLE),
-            content = MAX_CONTENT,
-            tags = Tags(listOf("너무너무", "긴 태그", "최대로", "5자까지", "5개제한임")),
-            nickname = Nickname(MAX_NAME),
+            title = MAX_TITLE,
+            description = MAX_CONTENT,
+            tags = listOf(Tag("너무너무"), Tag("긴 태그"), Tag("최대로"), Tag("5자까지"), Tag("5개제한임")),
+            status = Status.TODO,
+            nickname = MAX_NAME,
         ),
     )
 }

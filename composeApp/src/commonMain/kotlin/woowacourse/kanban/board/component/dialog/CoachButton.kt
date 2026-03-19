@@ -17,7 +17,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -29,7 +28,7 @@ import woowacourse.kanban.board.constant.PRIMARY_BORDER
 import woowacourse.kanban.board.constant.PRIMARY_SUB_TEXT
 
 @Composable
-fun CoachButton(isSelected: Boolean, name: String, onClick: () -> Unit, index: Int, modifier: Modifier = Modifier) {
+fun CoachButton(isSelected: Boolean, name: String, onClick: () -> Unit, modifier: Modifier = Modifier) {
     val unSelectedModifier = modifier.border(
         width = 2.dp, color = Color(PRIMARY_BORDER), shape = RoundedCornerShape(10.dp),
     )
@@ -45,8 +44,6 @@ fun CoachButton(isSelected: Boolean, name: String, onClick: () -> Unit, index: I
         }
             .clickable(
                 onClick = onClick,
-            ).testTag(
-                tag = if (isSelected) "selected$index" else "unselected$index",
             ),
     ) {
         Row(
@@ -63,11 +60,11 @@ fun CoachButton(isSelected: Boolean, name: String, onClick: () -> Unit, index: I
 @Preview(showBackground = true)
 @Composable
 private fun SelectedCoachButtonPreview() {
-    CoachButton(name = "다이노", isSelected = true, onClick = {}, index = 0)
+    CoachButton(name = "다이노", isSelected = true, onClick = {})
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun UnSelectedCoachButtonPreview() {
-    CoachButton(name = "페임스", isSelected = false, onClick = {}, index = 0)
+    CoachButton(name = "페임스", isSelected = false, onClick = {})
 }

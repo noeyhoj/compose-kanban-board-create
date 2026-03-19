@@ -9,16 +9,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import woowacourse.kanban.board.constant.TAG_COLOR
-import woowacourse.kanban.board.model.Tags
+import woowacourse.kanban.board.model.Tag
 
 @Composable
-fun TagsComponent(tags: Tags, modifier: Modifier = Modifier) {
+fun TagsComponent(tags: List<Tag>, modifier: Modifier = Modifier) {
     FlowRow(
         modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalArrangement = Arrangement.spacedBy(4.dp),
     ) {
-        tags.tags.forEach { tag ->
+        tags.forEach { tag ->
             Tag(
                 tag,
                 modifier = Modifier

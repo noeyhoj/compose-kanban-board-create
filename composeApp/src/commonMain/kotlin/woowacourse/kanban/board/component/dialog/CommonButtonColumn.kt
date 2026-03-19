@@ -15,10 +15,10 @@ import androidx.compose.ui.unit.dp
 fun CommonButtonColumn(
     header: String,
     items: List<String>,
-    selectedIndex: Int,
-    onChangeValue: (Int) -> Unit,
+    isSelected: (Int) -> Boolean,
+    onValueChange: (Int) -> Unit,
     modifier: Modifier = Modifier,
-    composable: @Composable (String, Boolean, () -> Unit, Int) -> Unit,
+    composable: @Composable (String, Boolean, () -> Unit) -> Unit,
 ) {
     Column(modifier) {
         HeaderText(title = header)
@@ -33,10 +33,8 @@ fun CommonButtonColumn(
             ) { index ->
                 composable(
                     items[index],
-                    selectedIndex == index,
-                    { onChangeValue(index) },
-                    index,
-                )
+                    isSelected(index),
+                ) { onValueChange(index) }
             }
         }
     }
@@ -48,10 +46,10 @@ private fun StatusCommonButtonColumnPreview() {
     CommonButtonColumn(
         header = "상태 *",
         items = listOf("To Do", "In Progress", "Done"),
-        selectedIndex = 0,
-        onChangeValue = {},
-    ) { status, isSelected, onClick, index ->
-        StatusButton(status = status, isSelected = isSelected, onClick = onClick, index = index)
+        isSelected = { true },
+        onValueChange = {},
+    ) { status, isSelected, onClick ->
+        StatusButton(status = status, isSelected = isSelected, onClick = onClick)
     }
 }
 
@@ -61,9 +59,9 @@ private fun NamesCommonButtonColumnPreview() {
     CommonButtonColumn(
         header = "담당자",
         items = listOf("다이노", "페임스"),
-        selectedIndex = 0,
-        onChangeValue = {},
-    ) { name, isSelected, onClick, index ->
-        CoachButton(name = name, isSelected = isSelected, onClick = onClick, index = index)
+        isSelected = { true },
+        onValueChange = {},
+    ) { name, isSelected, onClick ->
+        CoachButton(name = name, isSelected = isSelected, onClick = onClick)
     }
 }

@@ -7,12 +7,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import woowacourse.kanban.board.model.Tag
 
 @Composable
-fun Tag(content: String, modifier: Modifier = Modifier) {
+fun Tag(tag: Tag, modifier: Modifier = Modifier) {
     Box(
         modifier = modifier,
     ) {
-        Text(content, modifier = Modifier.padding(6.dp), fontSize = 10.sp)
+        Text(tag.text, modifier = Modifier.padding(6.dp), fontSize = 10.sp)
     }
 }

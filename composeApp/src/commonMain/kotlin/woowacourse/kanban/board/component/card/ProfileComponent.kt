@@ -19,10 +19,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import woowacourse.kanban.board.constant.PROFILE_BG_COLOR
 import woowacourse.kanban.board.constant.PROFILE_COLOR
-import woowacourse.kanban.board.model.Nickname
 
 @Composable
-fun Profile(nickname: Nickname, modifier: Modifier = Modifier) {
+fun Profile(nickname: String, modifier: Modifier = Modifier) {
     Row(
         modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(6.dp),
@@ -38,7 +37,7 @@ fun Profile(nickname: Nickname, modifier: Modifier = Modifier) {
                 .background(color = Color(PROFILE_BG_COLOR)),
         )
         Text(
-            nickname.nickname,
+            nickname,
             overflow = TextOverflow.Ellipsis,
             maxLines = 1,
         )

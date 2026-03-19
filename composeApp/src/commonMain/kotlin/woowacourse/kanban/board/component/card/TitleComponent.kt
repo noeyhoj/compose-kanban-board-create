@@ -6,15 +6,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.sp
-import woowacourse.kanban.board.model.Title
 
 @Composable
-fun Title(title: Title, modifier: Modifier = Modifier) {
+fun Title(title: String, modifier: Modifier = Modifier) {
     Box(
         modifier = modifier,
     ) {
         Text(
-            title.content,
+            title,
             fontSize = 16.sp,
             overflow = TextOverflow.Ellipsis,
             maxLines = 1,

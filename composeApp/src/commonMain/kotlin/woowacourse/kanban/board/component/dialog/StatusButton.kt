@@ -11,7 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -23,7 +22,7 @@ import woowacourse.kanban.board.constant.STATUS_BORDER_SELECTED
 import woowacourse.kanban.board.constant.STATUS_TEXT_SELECTED
 
 @Composable
-fun StatusButton(status: String, onClick: () -> Unit, index: Int, modifier: Modifier = Modifier, isSelected: Boolean = false) {
+fun StatusButton(status: String, onClick: () -> Unit, modifier: Modifier = Modifier, isSelected: Boolean = false) {
     val unSelectedModifier = modifier.border(width = 2.dp, color = Color(PRIMARY_BORDER), shape = RoundedCornerShape(10.dp))
     val selectedModifier = modifier.border(width = 2.dp, color = Color(STATUS_BORDER_SELECTED), shape = RoundedCornerShape(10.dp))
         .background(Color(STATUS_BG_SELECTED), shape = RoundedCornerShape(10.dp))
@@ -35,8 +34,6 @@ fun StatusButton(status: String, onClick: () -> Unit, index: Int, modifier: Modi
             selectedModifier
         }.clickable(
             onClick = onClick,
-        ).testTag(
-            tag = if (isSelected) "selected$index" else "unselected$index",
         ),
         contentAlignment = Alignment.Center,
     ) {
@@ -57,11 +54,11 @@ fun StatusButton(status: String, onClick: () -> Unit, index: Int, modifier: Modi
 @Preview(showBackground = true)
 @Composable
 private fun SelectedStatusButtonPreview() {
-    StatusButton(status = "To Do", isSelected = true, onClick = {}, index = 0)
+    StatusButton(status = "To Do", isSelected = true, onClick = {})
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun UnSelectedStatusButtonPreview() {
-    StatusButton(status = "In Progress", onClick = {}, index = 0)
+    StatusButton(status = "In Progress", onClick = {})
 }

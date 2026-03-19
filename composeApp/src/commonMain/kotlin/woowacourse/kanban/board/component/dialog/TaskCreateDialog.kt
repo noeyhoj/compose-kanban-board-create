@@ -11,39 +11,31 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import woowacourse.kanban.board.model.BoardData
-import woowacourse.kanban.board.model.Nickname
-import woowacourse.kanban.board.model.Tags
-import woowacourse.kanban.board.model.Title
 import woowacourse.kanban.board.model.Status
 
-val statuses = Status.entries
-
-val names = listOf(
-    Nickname("다이노"),
-    Nickname("페임스"),
-)
-
 @Composable
-fun TaskCreateDialog(modifier: Modifier = Modifier) {
-    var titleInputValue by rememberSaveable { mutableStateOf("") }
-    var contentInputValue by rememberSaveable { mutableStateOf("") }
-    var tagsInputValue by rememberSaveable { mutableStateOf("") }
-
-    var isTitleError by rememberSaveable { mutableStateOf(false) }
-    var isTagsError by rememberSaveable { mutableStateOf(false) }
-
-    var selectedStatusIndex: Int by rememberSaveable { mutableIntStateOf(0) }
-    var selectedNamesIndex: Int by rememberSaveable { mutableIntStateOf(0) }
+fun TaskCreateDialog(
+    modifier: Modifier = Modifier,
+    titleInputValue: String,
+    titleOnValueChange: (String) -> Unit,
+    isTitleError: Boolean,
+    contentInputValue: String,
+    contentOnValueChange: (String) -> Unit,
+    tagsInputValue: String,
+    tagsOnValueChange: (String) -> Unit,
+    isTagsError: Boolean,
+    statuses: List<Status>,
+    statusOnValueChange: (Int) -> Unit,
+    names: List<String>,
+    coachOnValueChange: (Int) -> Unit,
+    onCreate: () -> Unit,
+    isCreateError: Boolean,
+    isStatusSelected: (Int) -> Boolean,
+    isNamesSelected: (Int) -> Boolean,
+) {
 
     Column(
         modifier = modifier
@@ -67,10 +59,7 @@ fun TaskCreateDialog(modifier: Modifier = Modifier) {
                 modifier = Modifier.fillMaxWidth(),
                 title = "제목 *",
                 content = titleInputValue,
-                onValueChange = { value: String ->
-                    titleInputValue = value
-                    isTitleError = titleInputValue.isBlank()
-                },
+                onValueChange = titleOnValueChange,
                 isError = isTitleError,
                 placeholderText = "태스크 제목을 입력하세요",
             )
@@ -78,22 +67,14 @@ fun TaskCreateDialog(modifier: Modifier = Modifier) {
                 modifier = Modifier.fillMaxWidth().height(116.dp),
                 title = "설명",
                 content = contentInputValue,
-                onValueChange = { value: String ->
-                    contentInputValue = value
-                },
+                onValueChange = contentOnValueChange,
                 placeholderText = "태스크에 대한 자세한 설명을 입력하세요",
             )
             CommonTextColumn(
                 modifier = Modifier.fillMaxWidth(),
                 title = "태그 *",
                 content = tagsInputValue,
-                onValueChange = { value: String ->
-                    tagsInputValue = value
-                    val tags = if (tagsInputValue.isNotEmpty()) tagsInputValue.split(",") else emptyList()
-                    isTagsError =
-                        tags.any { it.length > 5 || it.isBlank() || it.split("").count { value -> value == " " } > 0 } ||
-                        tags.size > 5
-                },
+                onValueChange = tagsOnValueChange,
                 isError = isTagsError,
                 placeholderText = "태그를 쉼표로 구분하여 입력하세요 (예: 버그, 긴급)",
                 isSupportingText = true,
@@ -101,49 +82,25 @@ fun TaskCreateDialog(modifier: Modifier = Modifier) {
             CommonButtonColumn(
                 header = "상태 *",
                 items = statuses.map { it.state },
-                selectedIndex = selectedStatusIndex,
-                onChangeValue = { index: Int ->
-                    selectedStatusIndex = index
-                },
-            ) { status, isSelected, onClick, index ->
-                StatusButton(status = status, isSelected = isSelected, onClick = onClick, index = index)
+                isSelected = isStatusSelected,
+                onValueChange = statusOnValueChange,
+            ) { status, isSelected, onClick ->
+                StatusButton(status = status, isSelected = isSelected, onClick = onClick)
             }
             CommonButtonColumn(
                 header = "담당자 *",
-                items = names.map { it.nickname },
-                selectedIndex = selectedNamesIndex,
-                onChangeValue = { index: Int -> selectedNamesIndex = index },
-            ) { name, isSelected, onClick, index ->
-                CoachButton(name = name, isSelected = isSelected, onClick = onClick, index = index)
+                items = names,
+                isSelected = isNamesSelected,
+                onValueChange = coachOnValueChange,
+            ) { name, isSelected, onClick ->
+                CoachButton(name = name, isSelected = isSelected, onClick = onClick)
             }
             HorizontalDivider()
             FooterRow(
                 onCancel = { },
-                onCreate = {
-                    if (titleInputValue.isBlank()) {
-                        isTitleError = true
-                    } else {
-                        val boardData = BoardData(
-                            title = Title(titleInputValue),
-                            content = contentInputValue,
-                            tags = Tags(tagsInputValue.split(",")),
-                            nickname = names[selectedNamesIndex],
-                        )
-                        println(boardData)
-                    }
-                },
-                isCreateError = isTitleError || isTagsError,
+                onCreate = onCreate,
+                isCreateError = isCreateError,
             )
         }
     }
-}
-
-@Preview(
-    showBackground = true,
-    widthDp = 672,
-    heightDp = 900,
-)
-@Composable
-private fun TaskCreateDialogPreview() {
-    TaskCreateDialog()
 }
