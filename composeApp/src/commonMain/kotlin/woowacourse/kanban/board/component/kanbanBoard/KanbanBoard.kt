@@ -1,9 +1,15 @@
-package woowacourse.kanban.board
+package woowacourse.kanban.board.component.kanbanBoard
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
-import woowacourse.kanban.board.component.kanbanBoard.KanbanBoard
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import woowacourse.kanban.board.constant.DEFAULT_CONTENT
 import woowacourse.kanban.board.constant.DEFAULT_NAME
 import woowacourse.kanban.board.constant.DEFAULT_TITLE
@@ -11,12 +17,33 @@ import woowacourse.kanban.board.constant.MAX_CONTENT
 import woowacourse.kanban.board.constant.MAX_NAME
 import woowacourse.kanban.board.constant.MAX_TITLE
 import woowacourse.kanban.board.model.BoardData
-import woowacourse.kanban.board.model.KanbanBoardData
 import woowacourse.kanban.board.model.Status
 import woowacourse.kanban.board.model.Tag
 
 @Composable
-fun App() {
+fun KanbanBoard(boardList: List<BoardData>, doneCount: Int, totalCount: Int, onClick: () -> Unit) {
+    Column(
+        modifier = Modifier.background(color = Color.White),
+    ) {
+        KanbanBoardTitleBar(
+            doneCount = doneCount,
+            totalCount = totalCount,
+            onClick = onClick,
+        )
+        Row(
+            modifier = Modifier.padding(24.dp),
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+        ) {
+            Status.entries.forEach { state ->
+                StatusCardManageBox(boardList = boardList.filter { it.status == state }, status = state)
+            }
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun KanbanBoardPreview() {
     val boardList = listOf(
         BoardData(
             title = DEFAULT_TITLE,
@@ -50,8 +77,5 @@ fun App() {
             nickname = MAX_NAME,
         ),
     )
-    val kanbanBoardData = KanbanBoardData(boardList)
-    val doneCount = kanbanBoardData.boardList.count { it.status == Status.DONE }
-    val totalCount = kanbanBoardData.totalStatusCount
-    KanbanBoard(boardList = boardList, doneCount = doneCount, totalCount = totalCount, onClick = {})
+    KanbanBoard(boardList = boardList, doneCount = 3, totalCount = 6, onClick = {})
 }
