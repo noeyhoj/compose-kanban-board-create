@@ -1,8 +1,8 @@
 package woowacourse.kanban.board.model
 
+import kotlin.test.Test
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
-import kotlin.test.Test
 
 class BoardDataTest {
     @Test
@@ -30,7 +30,7 @@ class BoardDataTest {
                 description = "내용 어쩌구 저쩌구",
                 tags = listOf(Tag("버그"), Tag("다시하기"), Tag("1시간")),
                 status = Status.TODO,
-                nickname = "하로"
+                nickname = "하로",
             )
         }.isInstanceOf(IllegalArgumentException::class.java)
 
@@ -38,7 +38,7 @@ class BoardDataTest {
             BoardData(
                 title = "",
                 status = Status.TODO,
-                nickname = "하로"
+                nickname = "하로",
             )
         }.isInstanceOf(IllegalArgumentException::class.java)
     }

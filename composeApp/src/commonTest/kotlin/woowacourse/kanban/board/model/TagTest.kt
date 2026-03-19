@@ -1,8 +1,8 @@
 package woowacourse.kanban.board.model
 
+import kotlin.test.Test
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
-import kotlin.test.Test
 
 class TagTest {
     @Test
@@ -12,7 +12,7 @@ class TagTest {
                 title = "제목",
                 tags = listOf("일", "이", "삼", "사", "오", "육").map { Tag(it) },
                 status = Status.TODO,
-                nickname = "하로"
+                nickname = "하로",
             )
         }.isInstanceOf(IllegalArgumentException::class.java)
     }
