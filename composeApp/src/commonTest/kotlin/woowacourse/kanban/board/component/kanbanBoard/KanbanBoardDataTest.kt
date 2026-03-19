@@ -1,0 +1,78 @@
+package woowacourse.kanban.board.component.kanbanBoard
+
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.Test
+import woowacourse.kanban.board.constant.DEFAULT_CONTENT
+import woowacourse.kanban.board.constant.DEFAULT_NAME
+import woowacourse.kanban.board.constant.DEFAULT_TITLE
+import woowacourse.kanban.board.constant.MAX_CONTENT
+import woowacourse.kanban.board.constant.MAX_NAME
+import woowacourse.kanban.board.constant.MAX_TITLE
+import woowacourse.kanban.board.model.BoardData
+import woowacourse.kanban.board.model.KanbanBoardData
+import woowacourse.kanban.board.model.Status
+import woowacourse.kanban.board.model.Tag
+
+class KanbanBoardDataTest {
+    private val boardList = listOf(
+        BoardData(
+            title = DEFAULT_TITLE,
+            description = DEFAULT_CONTENT,
+            tags = listOf(Tag("컴포넌트"), Tag("성능")),
+            status = Status.TODO,
+            nickname = DEFAULT_NAME,
+        ),
+        BoardData(
+            title = DEFAULT_TITLE,
+            tags = listOf(Tag("컴포넌트"), Tag("성능")),
+            status = Status.TODO,
+            nickname = DEFAULT_NAME,
+        ),
+        BoardData(
+            title = DEFAULT_TITLE,
+            description = DEFAULT_CONTENT,
+            status = Status.TODO,
+            nickname = DEFAULT_NAME,
+        ),
+        BoardData(
+            title = DEFAULT_TITLE,
+            status = Status.TODO,
+            nickname = DEFAULT_NAME,
+        ),
+        BoardData(
+            title = MAX_TITLE,
+            description = MAX_CONTENT,
+            tags = listOf(Tag("너무너무"), Tag("긴태그"), Tag("최대로"), Tag("5자까지"), Tag("5개제한임")),
+            status = Status.TODO,
+            nickname = MAX_NAME,
+        ),
+    )
+
+    @Test
+    fun `태스크 전체 개수를 알고 있다`() {
+        val kanbanBoardData = KanbanBoardData(
+            boardList,
+        )
+
+        assertThat(kanbanBoardData.totalStatusCount).isEqualTo(kanbanBoardData.boardList.size)
+    }
+
+    @Test
+    fun `상태(To-Do, In Progress, Done)별 태스크 개수가 노출된다`() {
+        val kanbanBoardData = KanbanBoardData(
+            boardList,
+        )
+        assertThat(kanbanBoardData.getStatusBoard(Status.TODO).size).isEqualTo(3)
+        assertThat(kanbanBoardData.getStatusBoard(Status.IN_PROGRESS).size).isEqualTo(1)
+        assertThat(kanbanBoardData.getStatusBoard(Status.DONE).size).isEqualTo(1)
+    }
+
+    @Test
+    fun `전체 할 일 중 완료된 일의 비율을 계산한다`() {
+        val kanbanBoardData = KanbanBoardData(
+            boardList,
+        )
+
+        assertThat(kanbanBoardData.progress).isEqualTo(20)
+    }
+}
