@@ -90,7 +90,7 @@ private class BoardPreviewParameterProvider : PreviewParameterProvider<BoardData
         BoardData(
             title = MAX_TITLE,
             description = MAX_CONTENT,
-            tags = listOf(Tag("너무너무"), Tag("긴 태그"), Tag("최대로"), Tag("5자까지"), Tag("5개제한임")),
+            tags = listOf(Tag("너무너무"), Tag("긴태그"), Tag("최대로"), Tag("5자까지"), Tag("5개제한임")),
             status = Status.TODO,
             nickname = MAX_NAME,
         ),
