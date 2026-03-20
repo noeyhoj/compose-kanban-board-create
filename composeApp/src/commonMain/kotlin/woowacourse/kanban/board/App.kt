@@ -2,56 +2,36 @@ package woowacourse.kanban.board
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import woowacourse.kanban.board.component.kanbanBoard.KanbanBoard
-import woowacourse.kanban.board.constant.DEFAULT_CONTENT
-import woowacourse.kanban.board.constant.DEFAULT_NAME
-import woowacourse.kanban.board.constant.DEFAULT_TITLE
-import woowacourse.kanban.board.constant.MAX_CONTENT
-import woowacourse.kanban.board.constant.MAX_NAME
-import woowacourse.kanban.board.constant.MAX_TITLE
 import woowacourse.kanban.board.model.BoardData
 import woowacourse.kanban.board.model.KanbanBoardData
-import woowacourse.kanban.board.model.Status
-import woowacourse.kanban.board.model.Tag
 
 @Composable
 fun App() {
-    val boardList = listOf(
-        BoardData(
-            title = DEFAULT_TITLE,
-            description = DEFAULT_CONTENT,
-            tags = listOf(Tag("컴포넌트"), Tag("성능")),
-            status = Status.TODO,
-            nickname = DEFAULT_NAME,
-        ),
-        BoardData(
-            title = DEFAULT_TITLE,
-            tags = listOf(Tag("컴포넌트"), Tag("성능")),
-            status = Status.TODO,
-            nickname = DEFAULT_NAME,
-        ),
-        BoardData(
-            title = DEFAULT_TITLE,
-            description = DEFAULT_CONTENT,
-            status = Status.IN_PROGRESS,
-            nickname = DEFAULT_NAME,
-        ),
-        BoardData(
-            title = DEFAULT_TITLE,
-            status = Status.TODO,
-            nickname = DEFAULT_NAME,
-        ),
-        BoardData(
-            title = MAX_TITLE,
-            description = MAX_CONTENT,
-            tags = listOf(Tag("너무너무"), Tag("긴태그"), Tag("최대로"), Tag("5자까지"), Tag("5개제한임")),
-            status = Status.DONE,
-            nickname = MAX_NAME,
-        ),
+    val kanbanBoardData = remember { KanbanBoardData(mutableStateListOf()) }
+    var showDialog by remember { mutableStateOf(false) }
+
+    fun onCreateClick() {
+        showDialog = !showDialog
+    }
+
+    fun onDismissRequest() {
+        showDialog = false
+    }
+
+    fun onTaskAdd(boardData: BoardData) {
+        kanbanBoardData.addBoardData(boardData)
+    }
+
+    KanbanBoard(
+        kanbanBoardData = kanbanBoardData,
+        showDialog = showDialog,
+        onCreateClick = { onCreateClick() },
+        onDismissRequest = { onDismissRequest() },
+        onTaskAdd = { onTaskAdd(it) },
     )
-    val kanbanBoardData = KanbanBoardData(boardList)
-    val doneCount = kanbanBoardData.boardList.count { it.status == Status.DONE }
-    val totalCount = kanbanBoardData.totalStatusCount
-    KanbanBoard(boardList = boardList, doneCount = doneCount, totalCount = totalCount, onClick = {})
 }

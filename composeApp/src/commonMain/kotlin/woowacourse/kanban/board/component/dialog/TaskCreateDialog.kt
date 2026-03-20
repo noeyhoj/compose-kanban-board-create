@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
@@ -32,6 +31,7 @@ fun TaskCreateDialog(
     names: List<String>,
     coachOnValueChange: (Int) -> Unit,
     onCreate: () -> Unit,
+    onCancel: () -> Unit,
     isCreateError: Boolean,
     isStatusSelected: (Int) -> Boolean,
     isNamesSelected: (Int) -> Boolean,
@@ -40,7 +40,6 @@ fun TaskCreateDialog(
     Column(
         modifier = modifier
             .background(color = Color.White)
-            .size(width = 672.dp, height = 900.dp)
             .verticalScroll(rememberScrollState()),
     ) {
         DialogBar(
@@ -49,6 +48,7 @@ fun TaskCreateDialog(
                 horizontal = 24.dp,
             )
                 .fillMaxWidth(),
+            onClick = onCancel,
         )
         HorizontalDivider()
         Column(
@@ -97,7 +97,7 @@ fun TaskCreateDialog(
             }
             HorizontalDivider()
             FooterRow(
-                onCancel = { },
+                onCancel = onCancel,
                 onCreate = onCreate,
                 isCreateError = isCreateError,
             )

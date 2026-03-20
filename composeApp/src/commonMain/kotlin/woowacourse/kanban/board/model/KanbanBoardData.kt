@@ -1,11 +1,15 @@
 package woowacourse.kanban.board.model
 
-data class KanbanBoardData(val boardList: List<BoardData>) {
-    // 객체지향적으로!
-    // 물어보자. tall, don't ask
+data class KanbanBoardData(val boardList: MutableList<BoardData>) {
+    fun totalStatusCount(): Int = boardList.size
+    fun doneCount(): Int = boardList.count { it.status == Status.DONE }
 
-    val totalStatusCount = boardList.size
-    val progress = (boardList.count { it.status == Status.DONE }) * 100 / totalStatusCount
+    fun progress(): Float =
+        if (totalStatusCount() == 0) 0f else (boardList.count { it.status == Status.DONE }).toFloat() / totalStatusCount()
+
+    fun addBoardData(boardData: BoardData) {
+        boardList.add(boardData)
+    }
 
     fun getStatusBoard(status: Status): List<BoardData> = boardList.filter { it.status == status }
 }

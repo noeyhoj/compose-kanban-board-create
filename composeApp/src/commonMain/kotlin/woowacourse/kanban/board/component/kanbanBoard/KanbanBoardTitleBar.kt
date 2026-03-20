@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun KanbanBoardTitleBar(modifier: Modifier = Modifier, doneCount: Int, totalCount: Int, onClick: () -> Unit) {
+fun KanbanBoardTitleBar(modifier: Modifier = Modifier, progress: Float, doneCount: Int, totalStatusCount: Int, onCreateClick: () -> Unit) {
     Column(
         modifier = modifier.fillMaxWidth().padding(vertical = 16.dp, horizontal = 24.dp),
         verticalArrangement = Arrangement.SpaceBetween,
@@ -37,18 +37,28 @@ fun KanbanBoardTitleBar(modifier: Modifier = Modifier, doneCount: Int, totalCoun
             Column(
                 horizontalAlignment = Alignment.Start,
             ) {
-                Text("Compose Desktop 칸반 보드", color = Color(0xFF101828), fontSize = 24.sp, fontWeight = FontWeight.W500)
-                Text("완료율: 50% ($doneCount/$totalCount)", color = Color(0xFF6A7282), fontSize = 14.sp, fontWeight = FontWeight.W400)
+                Text(
+                    "Compose Desktop 칸반 보드",
+                    color = Color(0xFF101828),
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.W500,
+                )
+                Text(
+                    "완료율: ${"%.1f".format(progress * 100)}% ($doneCount/$totalStatusCount)",
+                    color = Color(0xFF6A7282),
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.W400,
+                )
             }
-            TaskCreateButton(onClick = onClick)
+            TaskCreateButton(onCreateClick = onCreateClick)
         }
         Box(modifier = Modifier.height(16.dp))
-        ProjectProgress(doneCount = doneCount, totalCount = totalCount)
+        ProjectProgress(progress = progress)
     }
 }
 
 @Composable
-private fun TaskCreateButton(onClick: () -> Unit) {
+private fun TaskCreateButton(onCreateClick: () -> Unit) {
     Button(
         colors = ButtonColors(
             containerColor = Color(0xFF4F39F6),
@@ -57,16 +67,14 @@ private fun TaskCreateButton(onClick: () -> Unit) {
             disabledContentColor = Color(0xFF4F39F6),
         ),
         shape = RoundedCornerShape(10.dp),
-        onClick = onClick,
+        onClick = onCreateClick,
     ) {
         Text("+ 새 태스크 생성", color = Color.White, fontSize = 16.sp, fontWeight = FontWeight.W400)
     }
 }
 
 @Composable
-private fun ProjectProgress(doneCount: Int, totalCount: Int) {
-    val progress = if (totalCount == 0) 0f else doneCount.toFloat() / totalCount.toFloat()
-
+private fun ProjectProgress(progress: Float) {
     LinearProgressIndicator(
         gapSize = 0.dp,
         strokeCap = StrokeCap.Square,
@@ -77,11 +85,12 @@ private fun ProjectProgress(doneCount: Int, totalCount: Int) {
             .height(8.dp),
         color = Color.Blue,
         trackColor = Color.LightGray,
+        drawStopIndicator = {}
     )
 }
 
 @Preview(showBackground = true, widthDp = 500)
 @Composable
 fun KanbanBoardTitleBarPreview() {
-    KanbanBoardTitleBar(doneCount = 3, totalCount = 6, onClick = {})
+    KanbanBoardTitleBar(progress = 0f, doneCount = 0, totalStatusCount = 0, onCreateClick = {})
 }

@@ -8,6 +8,6 @@ data class Tag(val text: String) {
     }
 
     companion object {
-        fun isTagError(tag: Tag): Boolean = tag.text.length > 5 || tag.text.isBlank() || tag.text.count { it.toString().isBlank() } > 0
+        fun isTagError(tag: String): Boolean = tag.length > 5 || tag.isBlank() || tag.count { it.toString().isBlank() } > 0
     }
 }
