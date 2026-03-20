@@ -14,7 +14,7 @@ import woowacourse.kanban.board.model.Status
 import woowacourse.kanban.board.model.Tag
 
 class KanbanBoardDataTest {
-    private val boardList = listOf(
+    private val boardList = mutableListOf(
         BoardData(
             title = DEFAULT_TITLE,
             description = DEFAULT_CONTENT,
@@ -31,7 +31,7 @@ class KanbanBoardDataTest {
         BoardData(
             title = DEFAULT_TITLE,
             description = DEFAULT_CONTENT,
-            status = Status.TODO,
+            status = Status.IN_PROGRESS,
             nickname = DEFAULT_NAME,
         ),
         BoardData(
@@ -43,7 +43,7 @@ class KanbanBoardDataTest {
             title = MAX_TITLE,
             description = MAX_CONTENT,
             tags = listOf(Tag("너무너무"), Tag("긴태그"), Tag("최대로"), Tag("5자까지"), Tag("5개제한임")),
-            status = Status.TODO,
+            status = Status.DONE,
             nickname = MAX_NAME,
         ),
     )
@@ -54,7 +54,7 @@ class KanbanBoardDataTest {
             boardList,
         )
 
-        assertThat(kanbanBoardData.totalStatusCount).isEqualTo(kanbanBoardData.boardList.size)
+        assertThat(kanbanBoardData.totalStatusCount()).isEqualTo(kanbanBoardData.boardList.size)
     }
 
     @Test
@@ -70,9 +70,9 @@ class KanbanBoardDataTest {
     @Test
     fun `전체 할 일 중 완료된 일의 비율을 계산한다`() {
         val kanbanBoardData = KanbanBoardData(
-            boardList,
+            boardList
         )
 
-        assertThat(kanbanBoardData.progress).isEqualTo(20)
+        assertThat(kanbanBoardData.progress()).isEqualTo(0.2f)
     }
 }

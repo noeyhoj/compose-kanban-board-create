@@ -1,5 +1,9 @@
 package woowacourse.kanban.board.component.dialog
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertIsNotEnabled
@@ -10,6 +14,8 @@ import androidx.compose.ui.test.runComposeUiTest
 import kotlin.collections.listOf
 import kotlin.test.Test
 import org.assertj.core.api.Assertions.assertThat
+import woowacourse.kanban.board.model.BoardData
+import woowacourse.kanban.board.model.Tag
 
 @OptIn(ExperimentalTestApi::class)
 class DialogTest {
@@ -154,5 +160,55 @@ class DialogTest {
         onNodeWithText("생성").performClick()
         assertThat(count).isEqualTo(1)
         onNodeWithText("생성").assertIsEnabled()
+    }
+
+    @Test
+    fun `태그가 다섯글자 이하로 입력되면 입력 값이 텍스트 필드에 존재한다`() = runComposeUiTest {
+        setContent {
+            var tagsInputValue by rememberSaveable { mutableStateOf("") }
+            var isTagsError by rememberSaveable { mutableStateOf(false) }
+            val tagsOnValueChange = { value: String ->
+                tagsInputValue = value
+                val tags = if (tagsInputValue.isNotEmpty()) tagsInputValue.split(",").map { Tag(it) } else emptyList()
+                isTagsError = tags.any { Tag.isTagError(it.text) } || BoardData.isTagsError(tags)
+            }
+
+            CommonTextColumn(
+                title = "태그",
+                content = tagsInputValue,
+                onValueChange = tagsOnValueChange,
+                placeholderText = "태그를 쉼표로 구분하여 입력하세요 (예: 버그, 긴급)",
+                isError = isTagsError,
+                isSupportingText = true,
+            )
+        }
+
+        onNodeWithText("태그를 쉼표로 구분하여 입력하세요 (예: 버그, 긴급)").performTextInput("다섯글자")
+        onNodeWithText("다섯글자").assertExists()
+    }
+
+    @Test
+    fun `태그가 여섯글자 이상 입력되면 오류 메세지가 발생한다`() = runComposeUiTest {
+        setContent {
+            var tagsInputValue by rememberSaveable { mutableStateOf("") }
+            var isTagsError by rememberSaveable { mutableStateOf(false) }
+            val tagsOnValueChange = { value: String ->
+                tagsInputValue = value
+                val tags = if (tagsInputValue.isNotEmpty()) tagsInputValue.split(",") else emptyList()
+                isTagsError = tags.any { Tag.isTagError(it) } || BoardData.isTagsError(tags.map { Tag(it) })
+            }
+
+            CommonTextColumn(
+                title = "태그",
+                content = tagsInputValue,
+                onValueChange = tagsOnValueChange,
+                placeholderText = "태그를 쉼표로 구분하여 입력하세요 (예: 버그, 긴급)",
+                isError = isTagsError,
+                isSupportingText = true,
+            )
+        }
+
+        onNodeWithText("태그를 쉼표로 구분하여 입력하세요 (예: 버그, 긴급)").performTextInput("여섯글자이상입력")
+        onNodeWithText("태그 형식이 올바르지 않습니다.").assertExists()
     }
 }
