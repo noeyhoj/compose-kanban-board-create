@@ -2,16 +2,22 @@ package woowacourse.kanban.board.component.kanbanBoard
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -24,11 +30,15 @@ import woowacourse.kanban.board.model.Tag
 
 @Composable
 fun KanbanBoard(
+    modifier: Modifier = Modifier,
     kanbanBoardData: KanbanBoardData,
     showDialog: Boolean,
+    isShowSnackBar: Boolean,
     onCreateClick: () -> Unit,
     onDismissRequest: () -> Unit,
     onTaskAdd: (BoardData) -> Unit,
+    showSnackBar: suspend () -> Unit,
+    onCancelClick: () -> Unit,
 ) {
     val statuses = Status.entries
 
@@ -59,7 +69,7 @@ fun KanbanBoard(
     val tagsOnValueChange = { value: String ->
         tagsInputValue = value
         val tags = if (tagsInputValue.isNotBlank()) tagsInputValue.split(",") else emptyList()
-        isTagsError = tags.any { Tag.isTagError(it) } || BoardData.isTagsError(tags.map{ Tag(it) })
+        isTagsError = tags.any { Tag.isTagError(it) } || BoardData.isTagsError(tags.map { Tag(it) })
     }
     val statusOnValueChange = { index: Int ->
         selectedStatusIndex = index
@@ -87,49 +97,64 @@ fun KanbanBoard(
     }
     val isCreateError = isTitleError || isTagsError
 
-    Column(
-        modifier = Modifier.background(color = Color.White),
-    ) {
-        KanbanBoardTitleBar(
-            progress = kanbanBoardData.progress(),
-            doneCount = kanbanBoardData.doneCount(),
-            totalStatusCount = kanbanBoardData.totalStatusCount(),
-            onCreateClick = onCreateClick,
-        )
-        Row(
-            modifier = Modifier.padding(24.dp),
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
+    Box {
+        Column(
+            modifier = modifier.background(color = Color.White),
         ) {
-            Status.entries.forEach { state ->
-                StatusCardManageBox(boardList = kanbanBoardData.getStatusBoard(state), status = state)
-            }
-        }
-
-        if (showDialog) {
-            Dialog(
-                onDismissRequest = onDismissRequest,
+            KanbanBoardTitleBar(
+                progress = kanbanBoardData.progress(),
+                doneCount = kanbanBoardData.doneCount(),
+                totalStatusCount = kanbanBoardData.totalStatusCount(),
+                onCreateClick = onCreateClick,
+            )
+            Row(
+                modifier = Modifier.padding(24.dp),
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
             ) {
-                TaskCreateDialog(
-                    titleInputValue = titleInputValue,
-                    titleOnValueChange = titleOnValueChange,
-                    isTitleError = isTitleError,
-                    contentInputValue = contentInputValue,
-                    contentOnValueChange = contentOnValueChange,
-                    tagsInputValue = tagsInputValue,
-                    tagsOnValueChange = tagsOnValueChange,
-                    isTagsError = isTagsError,
-                    statuses = statuses,
-                    statusOnValueChange = statusOnValueChange,
-                    names = names,
-                    coachOnValueChange = coachOnValueChange,
-                    onCreate = onCreate,
-                    onCancel = onDismissRequest,
-                    isCreateError = isCreateError,
-                    isStatusSelected = isStatusSelected,
-                    isNamesSelected = isNamesSelected,
-                )
+                Status.entries.forEach { state ->
+                    StatusCardManageBox(boardList = kanbanBoardData.getStatusBoard(state), status = state)
+                }
+            }
+
+            if (showDialog) {
+                Dialog(
+                    onDismissRequest = onDismissRequest,
+                ) {
+                    TaskCreateDialog(
+                        titleInputValue = titleInputValue,
+                        titleOnValueChange = titleOnValueChange,
+                        isTitleError = isTitleError,
+                        contentInputValue = contentInputValue,
+                        contentOnValueChange = contentOnValueChange,
+                        tagsInputValue = tagsInputValue,
+                        tagsOnValueChange = tagsOnValueChange,
+                        isTagsError = isTagsError,
+                        statuses = statuses,
+                        statusOnValueChange = statusOnValueChange,
+                        names = names,
+                        coachOnValueChange = coachOnValueChange,
+                        onCreate = onCreate,
+                        onCancel = onDismissRequest,
+                        isCreateError = isCreateError,
+                        isStatusSelected = isStatusSelected,
+                        isNamesSelected = isNamesSelected,
+                    )
+                }
             }
         }
+        LaunchedEffect(isShowSnackBar) {
+            showSnackBar()
+        }
+        if (isShowSnackBar) CreateAlertSnackBar(
+            modifier = Modifier
+                .clip(shape = RoundedCornerShape(4.dp))
+                .background(color = Color(0xFF322F35))
+                .padding(start = 16.dp)
+                .size(width = 344.dp, height = 48.dp)
+                .align(alignment = Alignment.BottomCenter),
+            text = "새로운 태스크가 추가되었습니다.",
+            onClick = onCancelClick,
+        )
     }
 }
 
@@ -138,6 +163,13 @@ fun KanbanBoard(
 private fun KanbanBoardPreview() {
     val kanbanBoardData = KanbanBoardData(mutableListOf())
     KanbanBoard(
-        kanbanBoardData = kanbanBoardData, showDialog = false, onCreateClick = {}, onDismissRequest = {}, onTaskAdd = {},
+        kanbanBoardData = kanbanBoardData,
+        showDialog = false,
+        onCreateClick = {},
+        onDismissRequest = {},
+        onTaskAdd = {},
+        isShowSnackBar = false,
+        showSnackBar = {},
+        onCancelClick = { },
     )
 }

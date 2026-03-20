@@ -23,6 +23,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import woowacourse.kanban.board.constant.KANBANBOARD_CONTENT_COLOR
+import woowacourse.kanban.board.constant.KANBANBOARD_CREATE_BUTTON_COLOR
+import woowacourse.kanban.board.constant.KANBANBOARD_TITLE_COLOR
 
 @Composable
 fun KanbanBoardTitleBar(modifier: Modifier = Modifier, progress: Float, doneCount: Int, totalStatusCount: Int, onCreateClick: () -> Unit) {
@@ -39,13 +42,13 @@ fun KanbanBoardTitleBar(modifier: Modifier = Modifier, progress: Float, doneCoun
             ) {
                 Text(
                     "Compose Desktop 칸반 보드",
-                    color = Color(0xFF101828),
+                    color = Color(KANBANBOARD_TITLE_COLOR),
                     fontSize = 24.sp,
                     fontWeight = FontWeight.W500,
                 )
                 Text(
                     "완료율: ${"%.1f".format(progress * 100)}% ($doneCount/$totalStatusCount)",
-                    color = Color(0xFF6A7282),
+                    color = Color(KANBANBOARD_CONTENT_COLOR),
                     fontSize = 14.sp,
                     fontWeight = FontWeight.W400,
                 )
@@ -61,10 +64,10 @@ fun KanbanBoardTitleBar(modifier: Modifier = Modifier, progress: Float, doneCoun
 private fun TaskCreateButton(onCreateClick: () -> Unit) {
     Button(
         colors = ButtonColors(
-            containerColor = Color(0xFF4F39F6),
-            contentColor = Color(0xFF4F39F6),
-            disabledContainerColor = Color(0xFF4F39F6),
-            disabledContentColor = Color(0xFF4F39F6),
+            containerColor = Color(KANBANBOARD_CREATE_BUTTON_COLOR),
+            contentColor = Color(KANBANBOARD_CREATE_BUTTON_COLOR),
+            disabledContainerColor = Color(KANBANBOARD_CREATE_BUTTON_COLOR),
+            disabledContentColor = Color(KANBANBOARD_CREATE_BUTTON_COLOR),
         ),
         shape = RoundedCornerShape(10.dp),
         onClick = onCreateClick,
@@ -85,12 +88,12 @@ private fun ProjectProgress(progress: Float) {
             .height(8.dp),
         color = Color.Blue,
         trackColor = Color.LightGray,
-        drawStopIndicator = {}
+        drawStopIndicator = {},
     )
 }
 
 @Preview(showBackground = true, widthDp = 500)
 @Composable
-fun KanbanBoardTitleBarPreview() {
+private fun KanbanBoardTitleBarPreview() {
     KanbanBoardTitleBar(progress = 0f, doneCount = 0, totalStatusCount = 0, onCreateClick = {})
 }

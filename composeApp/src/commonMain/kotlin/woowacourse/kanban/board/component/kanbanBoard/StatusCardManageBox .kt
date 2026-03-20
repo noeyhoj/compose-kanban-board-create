@@ -28,9 +28,18 @@ import woowacourse.kanban.board.component.card.KanbanBoardTemplate
 import woowacourse.kanban.board.constant.DEFAULT_CONTENT
 import woowacourse.kanban.board.constant.DEFAULT_NAME
 import woowacourse.kanban.board.constant.DEFAULT_TITLE
+import woowacourse.kanban.board.constant.DONE_CARD_BOX_BORDER_COLOR
+import woowacourse.kanban.board.constant.DONE_CARD_BOX_CONTENT_COLOR
+import woowacourse.kanban.board.constant.DONE_CARD_BOX_TITLE_COLOR
+import woowacourse.kanban.board.constant.IN_PROGRESS_CARD_BOX_BORDER_COLOR
+import woowacourse.kanban.board.constant.IN_PROGRESS_CARD_BOX_CONTENT_COLOR
+import woowacourse.kanban.board.constant.IN_PROGRESS_CARD_BOX_TITLE_COLOR
 import woowacourse.kanban.board.constant.MAX_CONTENT
 import woowacourse.kanban.board.constant.MAX_NAME
 import woowacourse.kanban.board.constant.MAX_TITLE
+import woowacourse.kanban.board.constant.TODO_CARD_BOX_BORDER_COLOR
+import woowacourse.kanban.board.constant.TODO_CARD_BOX_CONTENT_COLOR
+import woowacourse.kanban.board.constant.TODO_CARD_BOX_TITLE_COLOR
 import woowacourse.kanban.board.model.BoardData
 import woowacourse.kanban.board.model.Status
 import woowacourse.kanban.board.model.Tag
@@ -45,9 +54,9 @@ fun StatusCardManageBox(boardList: List<BoardData>, status: Status, modifier: Mo
                 .clip(shape = RoundedCornerShape(topStart = 10.dp, topEnd = 10.dp))
                 .background(
                     color = when (status) {
-                        Status.TODO -> Color(0xFF155DFC)
-                        Status.IN_PROGRESS -> Color(0xFFE17100)
-                        Status.DONE -> Color(0xFF00A63E)
+                        Status.TODO -> Color(TODO_CARD_BOX_TITLE_COLOR)
+                        Status.IN_PROGRESS -> Color(IN_PROGRESS_CARD_BOX_TITLE_COLOR)
+                        Status.DONE -> Color(DONE_CARD_BOX_TITLE_COLOR)
                     },
                 )
                 .padding(vertical = 12.dp, horizontal = 16.dp),
@@ -81,17 +90,17 @@ fun StatusCardManageBox(boardList: List<BoardData>, status: Status, modifier: Mo
                 .fillMaxWidth().fillMaxHeight()
                 .background(
                     color = when (status) {
-                        Status.TODO -> Color(0xFFEFF6FF)
-                        Status.IN_PROGRESS -> Color(0xFFFFFBEB)
-                        Status.DONE -> Color(0xFFF0FDF4)
+                        Status.TODO -> Color(TODO_CARD_BOX_CONTENT_COLOR)
+                        Status.IN_PROGRESS -> Color(IN_PROGRESS_CARD_BOX_CONTENT_COLOR)
+                        Status.DONE -> Color(DONE_CARD_BOX_CONTENT_COLOR)
                     },
                 )
                 .border(
                     width = 1.dp,
                     color = when (status) {
-                        Status.TODO -> Color(0xFFBEDBFF)
-                        Status.IN_PROGRESS -> Color(0xFFFEE685)
-                        Status.DONE -> Color(0xFFB9F8CF)
+                        Status.TODO -> Color(TODO_CARD_BOX_BORDER_COLOR)
+                        Status.IN_PROGRESS -> Color(IN_PROGRESS_CARD_BOX_BORDER_COLOR)
+                        Status.DONE -> Color(DONE_CARD_BOX_BORDER_COLOR)
                     },
                     shape = RoundedCornerShape(bottomStart = 10.dp, bottomEnd = 10.dp),
                 ),
@@ -111,7 +120,7 @@ fun StatusCardManageBox(boardList: List<BoardData>, status: Status, modifier: Mo
 
 @Preview(showBackground = true)
 @Composable
-fun StatusCardManageBoxPreview() {
+private fun StatusCardManageBoxPreview() {
     val boardList = listOf(
         BoardData(
             title = DEFAULT_TITLE,
