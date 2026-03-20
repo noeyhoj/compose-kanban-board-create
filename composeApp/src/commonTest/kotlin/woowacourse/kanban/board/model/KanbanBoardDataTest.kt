@@ -1,6 +1,6 @@
-package woowacourse.kanban.board.component.kanbanBoard
+package woowacourse.kanban.board.model
 
-import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions
 import org.junit.Test
 import woowacourse.kanban.board.constant.DEFAULT_CONTENT
 import woowacourse.kanban.board.constant.DEFAULT_NAME
@@ -8,10 +8,6 @@ import woowacourse.kanban.board.constant.DEFAULT_TITLE
 import woowacourse.kanban.board.constant.MAX_CONTENT
 import woowacourse.kanban.board.constant.MAX_NAME
 import woowacourse.kanban.board.constant.MAX_TITLE
-import woowacourse.kanban.board.model.BoardData
-import woowacourse.kanban.board.model.KanbanBoardData
-import woowacourse.kanban.board.model.Status
-import woowacourse.kanban.board.model.Tag
 
 class KanbanBoardDataTest {
     private val boardList = mutableListOf(
@@ -54,7 +50,7 @@ class KanbanBoardDataTest {
             boardList,
         )
 
-        assertThat(kanbanBoardData.totalStatusCount()).isEqualTo(kanbanBoardData.boardList.size)
+        Assertions.assertThat(kanbanBoardData.totalStatusCount()).isEqualTo(kanbanBoardData.boardList.size)
     }
 
     @Test
@@ -62,17 +58,17 @@ class KanbanBoardDataTest {
         val kanbanBoardData = KanbanBoardData(
             boardList,
         )
-        assertThat(kanbanBoardData.getStatusBoard(Status.TODO).size).isEqualTo(3)
-        assertThat(kanbanBoardData.getStatusBoard(Status.IN_PROGRESS).size).isEqualTo(1)
-        assertThat(kanbanBoardData.getStatusBoard(Status.DONE).size).isEqualTo(1)
+        Assertions.assertThat(kanbanBoardData.getStatusBoard(Status.TODO).size).isEqualTo(3)
+        Assertions.assertThat(kanbanBoardData.getStatusBoard(Status.IN_PROGRESS).size).isEqualTo(1)
+        Assertions.assertThat(kanbanBoardData.getStatusBoard(Status.DONE).size).isEqualTo(1)
     }
 
     @Test
     fun `전체 할 일 중 완료된 일의 비율을 계산한다`() {
         val kanbanBoardData = KanbanBoardData(
-            boardList
+            boardList,
         )
 
-        assertThat(kanbanBoardData.progress()).isEqualTo(0.2f)
+        Assertions.assertThat(kanbanBoardData.progress()).isEqualTo(0.2f)
     }
 }
