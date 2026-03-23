@@ -5,3 +5,5 @@ enum class Status(val state: String) {
     IN_PROGRESS("In Progress"),
     DONE("Done"),
 }
+
+data class StatusColor(val titleBgColor: Long, val boardBgColor: Long, val boardBorderColor: Long)

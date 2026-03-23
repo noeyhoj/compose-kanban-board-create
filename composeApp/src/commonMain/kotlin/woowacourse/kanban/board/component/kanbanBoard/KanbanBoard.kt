@@ -24,9 +24,19 @@ import androidx.compose.ui.window.Dialog
 import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.delay
 import woowacourse.kanban.board.component.dialog.TaskCreateDialog
+import woowacourse.kanban.board.constant.DONE_CARD_BOX_BORDER_COLOR
+import woowacourse.kanban.board.constant.DONE_CARD_BOX_CONTENT_COLOR
+import woowacourse.kanban.board.constant.DONE_CARD_BOX_TITLE_COLOR
+import woowacourse.kanban.board.constant.IN_PROGRESS_CARD_BOX_BORDER_COLOR
+import woowacourse.kanban.board.constant.IN_PROGRESS_CARD_BOX_CONTENT_COLOR
+import woowacourse.kanban.board.constant.IN_PROGRESS_CARD_BOX_TITLE_COLOR
+import woowacourse.kanban.board.constant.TODO_CARD_BOX_BORDER_COLOR
+import woowacourse.kanban.board.constant.TODO_CARD_BOX_CONTENT_COLOR
+import woowacourse.kanban.board.constant.TODO_CARD_BOX_TITLE_COLOR
 import woowacourse.kanban.board.model.BoardData
 import woowacourse.kanban.board.model.KanbanBoardData
 import woowacourse.kanban.board.model.Status
+import woowacourse.kanban.board.model.StatusColor
 import woowacourse.kanban.board.model.Tag
 import woowacourse.kanban.board.state.BoardDataState
 
@@ -79,6 +89,19 @@ fun KanbanBoard(modifier: Modifier = Modifier) {
         isShowSnackBar = false
     }
 
+    fun getStatusColor(status: Status): StatusColor {
+        return when (status) {
+            Status.TODO -> StatusColor(TODO_CARD_BOX_TITLE_COLOR, TODO_CARD_BOX_CONTENT_COLOR, TODO_CARD_BOX_BORDER_COLOR)
+            Status.IN_PROGRESS -> StatusColor(
+                IN_PROGRESS_CARD_BOX_TITLE_COLOR,
+                IN_PROGRESS_CARD_BOX_CONTENT_COLOR,
+                IN_PROGRESS_CARD_BOX_BORDER_COLOR,
+            )
+
+            Status.DONE -> StatusColor(DONE_CARD_BOX_TITLE_COLOR, DONE_CARD_BOX_CONTENT_COLOR, DONE_CARD_BOX_BORDER_COLOR)
+        }
+    }
+
     Box {
         Column(
             modifier = modifier.background(color = Color.White),
@@ -93,8 +116,12 @@ fun KanbanBoard(modifier: Modifier = Modifier) {
                 modifier = Modifier.padding(24.dp),
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
             ) {
-                Status.entries.forEach { state ->
-                    StatusCardManageBox(boardList = kanbanBoardData.getStatusBoard(state), status = state)
+                Status.entries.forEach { status ->
+                    StatusCardManageBox(
+                        boardList = kanbanBoardData.getStatusBoard(status),
+                        status = status,
+                        statusColor = getStatusColor(status),
+                    )
                 }
             }
 
