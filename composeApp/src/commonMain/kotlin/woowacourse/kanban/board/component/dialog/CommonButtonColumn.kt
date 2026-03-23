@@ -10,15 +10,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import woowacourse.kanban.board.model.Status
 
 @Composable
-fun CommonButtonColumn(
+fun <T> CommonButtonColumn(
     header: String,
-    items: List<String>,
-    isSelected: (Int) -> Boolean,
-    onValueChange: (Int) -> Unit,
+    items: List<T>,
+    isSelected: (T) -> Boolean,
+    onValueChange: (T) -> Unit,
     modifier: Modifier = Modifier,
-    composable: @Composable (String, Boolean, () -> Unit) -> Unit,
+    composable: @Composable (T, Boolean, () -> Unit) -> Unit,
 ) {
     Column(modifier) {
         HeaderText(title = header)
@@ -33,8 +34,8 @@ fun CommonButtonColumn(
             ) { index ->
                 composable(
                     items[index],
-                    isSelected(index),
-                ) { onValueChange(index) }
+                    isSelected(items[index]),
+                ) { onValueChange(items[index]) }
             }
         }
     }
@@ -45,7 +46,7 @@ fun CommonButtonColumn(
 private fun StatusCommonButtonColumnPreview() {
     CommonButtonColumn(
         header = "상태 *",
-        items = listOf("To Do", "In Progress", "Done"),
+        items = Status.entries,
         isSelected = { true },
         onValueChange = {},
     ) { status, isSelected, onClick ->

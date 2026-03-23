@@ -11,9 +11,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,80 +21,59 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import kotlin.time.Duration.Companion.milliseconds
+import kotlinx.coroutines.delay
 import woowacourse.kanban.board.component.dialog.TaskCreateDialog
 import woowacourse.kanban.board.model.BoardData
+import woowacourse.kanban.board.model.BoardDataState
 import woowacourse.kanban.board.model.KanbanBoardData
 import woowacourse.kanban.board.model.Status
 import woowacourse.kanban.board.model.Tag
 
 @Composable
-fun KanbanBoard(
-    modifier: Modifier = Modifier,
-    kanbanBoardData: KanbanBoardData,
-    showDialog: Boolean,
-    isShowSnackBar: Boolean,
-    onCreateClick: () -> Unit,
-    onDismissRequest: () -> Unit,
-    onTaskAdd: (BoardData) -> Unit,
-    showSnackBar: suspend () -> Unit,
-    onCancelClick: () -> Unit,
-) {
-    val statuses = Status.entries
+fun KanbanBoard(modifier: Modifier = Modifier) {
+    val kanbanBoardData = remember { KanbanBoardData() }
 
-    val names = listOf(
-        "다이노",
-        "페임스",
-    )
-    var titleInputValue by rememberSaveable { mutableStateOf("") }
-    var contentInputValue by rememberSaveable { mutableStateOf("") }
-    var tagsInputValue by rememberSaveable { mutableStateOf("") }
+    var showDialog by remember { mutableStateOf(false) }
+    var isShowSnackBar by remember { mutableStateOf(false) }
 
-    var isTitleError by rememberSaveable { mutableStateOf(false) }
-    var isTagsError by rememberSaveable { mutableStateOf(false) }
-
-    var selectedStatusIndex: Int by rememberSaveable { mutableIntStateOf(0) }
-    val isStatusSelected: (index: Int) -> Boolean = { selectedStatusIndex == it }
-
-    var selectedNameIndex: Int by rememberSaveable { mutableIntStateOf(0) }
-    val isNamesSelected: (index: Int) -> Boolean = { selectedNameIndex == it }
-
-    val titleOnValueChange = { value: String ->
-        titleInputValue = value
-        isTitleError = BoardData.isTitleError(titleInputValue)
+    fun onCreateClick() {
+        showDialog = true
     }
-    val contentOnValueChange = { value: String ->
-        contentInputValue = value
+
+    fun onDismissRequest() {
+        showDialog = false
     }
-    val tagsOnValueChange = { value: String ->
-        tagsInputValue = value
-        val tags = if (tagsInputValue.isNotBlank()) tagsInputValue.split(",") else emptyList()
-        isTagsError = tags.any { Tag.isTagError(it) } || BoardData.isTagsError(tags.map { Tag(it) })
+
+    fun onShowSnackBar() {
+        isShowSnackBar = true
     }
-    val statusOnValueChange = { index: Int ->
-        selectedStatusIndex = index
-    }
-    val coachOnValueChange = { index: Int -> selectedNameIndex = index }
-    val onCreate = {
-        if (titleInputValue.isBlank()) {
-            isTitleError = true
+
+    fun onTaskCreate(boardDataState: BoardDataState) {
+        if (BoardData.isTitleError(boardDataState.titleInputValue)) {
+            boardDataState.isTitleError = true
         } else {
             val boardData = BoardData(
-                title = titleInputValue,
-                description = contentInputValue,
-                tags = if (tagsInputValue.isNotBlank()) tagsInputValue.split(",").map { Tag(it) } else emptyList(),
-                status = statuses[selectedStatusIndex],
-                nickname = names[selectedNameIndex],
+                title = boardDataState.titleInputValue,
+                description = boardDataState.descriptionInputValue,
+                tags = if (boardDataState.tagsInputValue.isNotBlank()) {
+                    boardDataState.tagsInputValue.split(",").map { Tag(it) }
+                } else emptyList(),
+                status = boardDataState.statusValue,
+                nickname = boardDataState.nameValue,
             )
-            onTaskAdd(boardData)
-            titleInputValue = ""
-            contentInputValue = ""
-            tagsInputValue = ""
-            selectedStatusIndex = 0
-            selectedNameIndex = 0
-            onDismissRequest()
+            kanbanBoardData.addBoardData(boardData)
         }
     }
-    val isCreateError = isTitleError || isTagsError
+
+    suspend fun showSnackBar() {
+        delay(3000.milliseconds)
+        isShowSnackBar = false
+    }
+
+    fun onSnackBarCancelClick() {
+        isShowSnackBar = false
+    }
 
     Box {
         Column(
@@ -105,7 +83,7 @@ fun KanbanBoard(
                 progress = kanbanBoardData.progress(),
                 doneCount = kanbanBoardData.doneCount(),
                 totalStatusCount = kanbanBoardData.totalStatusCount(),
-                onCreateClick = onCreateClick,
+                onCreateClick = { onCreateClick() },
             )
             Row(
                 modifier = Modifier.padding(24.dp),
@@ -118,26 +96,15 @@ fun KanbanBoard(
 
             if (showDialog) {
                 Dialog(
-                    onDismissRequest = onDismissRequest,
+                    onDismissRequest = { onDismissRequest() },
                 ) {
                     TaskCreateDialog(
-                        titleInputValue = titleInputValue,
-                        titleOnValueChange = titleOnValueChange,
-                        isTitleError = isTitleError,
-                        contentInputValue = contentInputValue,
-                        contentOnValueChange = contentOnValueChange,
-                        tagsInputValue = tagsInputValue,
-                        tagsOnValueChange = tagsOnValueChange,
-                        isTagsError = isTagsError,
-                        statuses = statuses,
-                        statusOnValueChange = statusOnValueChange,
-                        names = names,
-                        coachOnValueChange = coachOnValueChange,
-                        onCreate = onCreate,
-                        onCancel = onDismissRequest,
-                        isCreateError = isCreateError,
-                        isStatusSelected = isStatusSelected,
-                        isNamesSelected = isNamesSelected,
+                        onTaskCreate = {
+                            onTaskCreate(it)
+                            onDismissRequest()
+                            onShowSnackBar()
+                        },
+                        onDismissRequest = { onDismissRequest() },
                     )
                 }
             }
@@ -153,7 +120,7 @@ fun KanbanBoard(
                 .size(width = 344.dp, height = 48.dp)
                 .align(alignment = Alignment.BottomCenter),
             text = "새로운 태스크가 추가되었습니다.",
-            onClick = onCancelClick,
+            onClick = { onSnackBarCancelClick() },
         )
     }
 }
@@ -161,15 +128,5 @@ fun KanbanBoard(
 @Preview(showBackground = true)
 @Composable
 private fun KanbanBoardPreview() {
-    val kanbanBoardData = KanbanBoardData(mutableListOf())
-    KanbanBoard(
-        kanbanBoardData = kanbanBoardData,
-        showDialog = false,
-        onCreateClick = {},
-        onDismissRequest = {},
-        onTaskAdd = {},
-        isShowSnackBar = false,
-        showSnackBar = {},
-        onCancelClick = { },
-    )
+    KanbanBoard()
 }

@@ -20,15 +20,15 @@ import woowacourse.kanban.board.constant.PRIMARY_SUB_TEXT
 import woowacourse.kanban.board.constant.STATUS_BG_SELECTED
 import woowacourse.kanban.board.constant.STATUS_BORDER_SELECTED
 import woowacourse.kanban.board.constant.STATUS_TEXT_SELECTED
+import woowacourse.kanban.board.model.Status
 
 @Composable
-fun StatusButton(status: String, onClick: () -> Unit, modifier: Modifier = Modifier, isSelected: Boolean = false) {
+fun StatusButton(status: Status, onClick: () -> Unit, modifier: Modifier = Modifier, isSelected: Boolean = false) {
     val unSelectedModifier = modifier.border(width = 2.dp, color = Color(PRIMARY_BORDER), shape = RoundedCornerShape(10.dp))
     val selectedModifier = modifier.border(width = 2.dp, color = Color(STATUS_BORDER_SELECTED), shape = RoundedCornerShape(10.dp))
         .background(Color(STATUS_BG_SELECTED), shape = RoundedCornerShape(10.dp))
     Box(
-        modifier =
-        if (!isSelected) {
+        modifier = if (!isSelected) {
             unSelectedModifier
         } else {
             selectedModifier
@@ -38,7 +38,7 @@ fun StatusButton(status: String, onClick: () -> Unit, modifier: Modifier = Modif
         contentAlignment = Alignment.Center,
     ) {
         Text(
-            status,
+            status.state,
             fontWeight = FontWeight.W500,
             fontSize = 16.sp,
             modifier = Modifier.padding(vertical = 14.dp),
@@ -54,11 +54,11 @@ fun StatusButton(status: String, onClick: () -> Unit, modifier: Modifier = Modif
 @Preview(showBackground = true)
 @Composable
 private fun SelectedStatusButtonPreview() {
-    StatusButton(status = "To Do", isSelected = true, onClick = {})
+    StatusButton(status = Status.TODO, isSelected = true, onClick = {})
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun UnSelectedStatusButtonPreview() {
-    StatusButton(status = "In Progress", onClick = {})
+    StatusButton(status = Status.IN_PROGRESS, onClick = {})
 }

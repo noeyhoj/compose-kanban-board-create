@@ -10,32 +10,25 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import woowacourse.kanban.board.model.BoardDataState
 import woowacourse.kanban.board.model.Status
 
 @Composable
-fun TaskCreateDialog(
-    modifier: Modifier = Modifier,
-    titleInputValue: String,
-    titleOnValueChange: (String) -> Unit,
-    isTitleError: Boolean,
-    contentInputValue: String,
-    contentOnValueChange: (String) -> Unit,
-    tagsInputValue: String,
-    tagsOnValueChange: (String) -> Unit,
-    isTagsError: Boolean,
-    statuses: List<Status>,
-    statusOnValueChange: (Int) -> Unit,
-    names: List<String>,
-    coachOnValueChange: (Int) -> Unit,
-    onCreate: () -> Unit,
-    onCancel: () -> Unit,
-    isCreateError: Boolean,
-    isStatusSelected: (Int) -> Boolean,
-    isNamesSelected: (Int) -> Boolean,
-) {
+fun TaskCreateDialog(modifier: Modifier = Modifier, onTaskCreate: (BoardDataState) -> Unit, onDismissRequest: () -> Unit) {
+    val statuses = Status.entries
+
+    val names = listOf(
+        "다이노",
+        "페임스",
+    )
+
+    val boardDataState = remember { BoardDataState() }
+
+    val isCreateError = boardDataState.isTitleError || boardDataState.isTagsError
 
     Column(
         modifier = modifier
@@ -48,7 +41,7 @@ fun TaskCreateDialog(
                 horizontal = 24.dp,
             )
                 .fillMaxWidth(),
-            onClick = onCancel,
+            onClick = onDismissRequest,
         )
         HorizontalDivider()
         Column(
@@ -58,47 +51,47 @@ fun TaskCreateDialog(
             CommonTextColumn(
                 modifier = Modifier.fillMaxWidth(),
                 title = "제목 *",
-                content = titleInputValue,
-                onValueChange = titleOnValueChange,
-                isError = isTitleError,
+                content = boardDataState.titleInputValue,
+                onValueChange = { boardDataState.titleOnValueChange(it) },
+                isError = boardDataState.isTitleError,
                 placeholderText = "태스크 제목을 입력하세요",
             )
             CommonTextColumn(
                 modifier = Modifier.fillMaxWidth().height(116.dp),
                 title = "설명",
-                content = contentInputValue,
-                onValueChange = contentOnValueChange,
+                content = boardDataState.descriptionInputValue,
+                onValueChange = { boardDataState.descriptionOnValueChange(it) },
                 placeholderText = "태스크에 대한 자세한 설명을 입력하세요",
             )
             CommonTextColumn(
                 modifier = Modifier.fillMaxWidth(),
                 title = "태그 *",
-                content = tagsInputValue,
-                onValueChange = tagsOnValueChange,
-                isError = isTagsError,
+                content = boardDataState.tagsInputValue,
+                onValueChange = { boardDataState.tagsOnValueChange(it) },
+                isError = boardDataState.isTagsError,
                 placeholderText = "태그를 쉼표로 구분하여 입력하세요 (예: 버그, 긴급)",
                 isSupportingText = true,
             )
             CommonButtonColumn(
                 header = "상태 *",
-                items = statuses.map { it.state },
-                isSelected = isStatusSelected,
-                onValueChange = statusOnValueChange,
+                items = statuses,
+                isSelected = { boardDataState.isSelectedStatus(it) },
+                onValueChange = { boardDataState.statusOnValueChange(it) },
             ) { status, isSelected, onClick ->
                 StatusButton(status = status, isSelected = isSelected, onClick = onClick)
             }
             CommonButtonColumn(
                 header = "담당자 *",
                 items = names,
-                isSelected = isNamesSelected,
-                onValueChange = coachOnValueChange,
+                isSelected = { boardDataState.isSelectedName(it) },
+                onValueChange = { boardDataState.nameOnValueChange(it) },
             ) { name, isSelected, onClick ->
                 CoachButton(name = name, isSelected = isSelected, onClick = onClick)
             }
             HorizontalDivider()
             FooterRow(
-                onCancel = onCancel,
-                onCreate = onCreate,
+                onCancel = onDismissRequest,
+                onCreate = { onTaskCreate(boardDataState) },
                 isCreateError = isCreateError,
             )
         }
