@@ -25,10 +25,10 @@ import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.delay
 import woowacourse.kanban.board.component.dialog.TaskCreateDialog
 import woowacourse.kanban.board.model.BoardData
-import woowacourse.kanban.board.model.BoardDataState
 import woowacourse.kanban.board.model.KanbanBoardData
 import woowacourse.kanban.board.model.Status
 import woowacourse.kanban.board.model.Tag
+import woowacourse.kanban.board.state.BoardDataState
 
 @Composable
 fun KanbanBoard(modifier: Modifier = Modifier) {

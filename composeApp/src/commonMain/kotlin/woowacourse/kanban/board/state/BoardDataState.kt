@@ -1,8 +1,11 @@
-package woowacourse.kanban.board.model
+package woowacourse.kanban.board.state
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import woowacourse.kanban.board.model.BoardData
+import woowacourse.kanban.board.model.Status
+import woowacourse.kanban.board.model.Tag
 
 class BoardDataState {
     var titleInputValue by mutableStateOf("")

@@ -14,8 +14,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import woowacourse.kanban.board.model.BoardDataState
 import woowacourse.kanban.board.model.Status
+import woowacourse.kanban.board.state.BoardDataState
 
 @Composable
 fun TaskCreateDialog(modifier: Modifier = Modifier, onTaskCreate: (BoardDataState) -> Unit, onDismissRequest: () -> Unit) {
