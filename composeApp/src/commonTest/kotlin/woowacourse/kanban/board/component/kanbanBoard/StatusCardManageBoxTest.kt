@@ -1,6 +1,8 @@
-package woowacourse.kanban.board.model
+package woowacourse.kanban.board.component.kanbanBoard
 
-import org.assertj.core.api.Assertions
+import androidx.compose.ui.test.ExperimentalTestApi
+import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.runComposeUiTest
 import org.junit.Test
 import woowacourse.kanban.board.constant.DEFAULT_CONTENT
 import woowacourse.kanban.board.constant.DEFAULT_NAME
@@ -8,9 +10,16 @@ import woowacourse.kanban.board.constant.DEFAULT_TITLE
 import woowacourse.kanban.board.constant.MAX_CONTENT
 import woowacourse.kanban.board.constant.MAX_NAME
 import woowacourse.kanban.board.constant.MAX_TITLE
+import woowacourse.kanban.board.model.BoardData
+import woowacourse.kanban.board.model.KanbanBoardData
+import woowacourse.kanban.board.model.Status
+import woowacourse.kanban.board.model.StatusColor
+import woowacourse.kanban.board.model.Tag
 
-class KanbanBoardDataTest {
-    private val boardList = mutableListOf(
+@OptIn(ExperimentalTestApi::class)
+class StatusCardManageBoxTest {
+
+    private val boardList = listOf(
         BoardData(
             title = DEFAULT_TITLE,
             description = DEFAULT_CONTENT,
@@ -45,30 +54,18 @@ class KanbanBoardDataTest {
     )
 
     @Test
-    fun `태스크 전체 개수를 알고 있다`() {
-        val kanbanBoardData = KanbanBoardData(
-            boardList,
-        )
+    fun `boardList 중에 TODO에 해당하는 카드 만큼을 박스에 그린다`() = runComposeUiTest {
 
-        Assertions.assertThat(kanbanBoardData.totalStatusCount()).isEqualTo(boardList.size)
-    }
+        val status = Status.TODO
 
-    @Test
-    fun `상태(To-Do, In Progress, Done)별 태스크 개수가 노출된다`() {
-        val kanbanBoardData = KanbanBoardData(
-            boardList,
-        )
-        Assertions.assertThat(kanbanBoardData.getStatusBoard(Status.TODO).size).isEqualTo(3)
-        Assertions.assertThat(kanbanBoardData.getStatusBoard(Status.IN_PROGRESS).size).isEqualTo(1)
-        Assertions.assertThat(kanbanBoardData.getStatusBoard(Status.DONE).size).isEqualTo(1)
-    }
+        setContent {
+            StatusCardManageBox(
+                boardList = boardList,
+                status = status,
+                statusColor = StatusColor.getStatusColor(status)
+            )
+        }
 
-    @Test
-    fun `전체 할 일 중 완료된 일의 비율을 계산한다`() {
-        val kanbanBoardData = KanbanBoardData(
-            boardList,
-        )
-
-        Assertions.assertThat(kanbanBoardData.progress()).isEqualTo(0.2f)
+        onNodeWithText("3").assertExists()
     }
 }
