@@ -2,12 +2,11 @@ package woowacourse.kanban.board.model
 
 data class Tag(val text: String) {
     init {
-        val maxTagLength = 5
-        require(text.length <= maxTagLength) { "[ERROR] 태그의 글자수는 ${maxTagLength}글자 이하여야 합니다." }
-        require(text.all { it.toString().isNotBlank() }) { "[ERROR] 태그에 공백이 존재하면 안됩니다." }
+        require(isTagError(text)) { "[ERROR] 태그에서 오류가 발생했습니다." }
     }
 
     companion object {
-        fun isTagError(tag: String): Boolean = tag.length > 5 || tag.isBlank() || tag.count { it.toString().isBlank() } > 0
+        const val MAX_TAG_LENGTH = 5
+        fun isTagError(tag: String): Boolean = tag.length > MAX_TAG_LENGTH || tag.isBlank() || tag.count { it.toString().isBlank() } > 0
     }
 }

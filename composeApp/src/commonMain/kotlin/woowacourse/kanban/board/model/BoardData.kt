@@ -8,13 +8,13 @@ data class BoardData(
     val nickname: String,
 ) {
     init {
-        val maxTagsSize = 5
-        require(title.isNotBlank()) { "[ERROR] 제목이 비어있으면 안됩니다." }
-        require(tags.size <= maxTagsSize) { "[ERROR] 태그의 개수는 ${maxTagsSize}개 이하로 작성해야 합니다." }
+        require(isTitleError(title)) { "[ERROR] 제목이 비어있으면 안됩니다." }
+        require(isTagsError(tags)) { "[ERROR] 태그의 개수가 너무 많습니다." }
     }
 
     companion object {
+        const val MAX_TAGS_SIZE = 5
         fun isTitleError(title: String): Boolean = title.isBlank()
-        fun isTagsError(tags: List<Tag>): Boolean = tags.size > 5
+        fun isTagsError(tags: List<Tag>): Boolean = tags.size > MAX_TAGS_SIZE
     }
 }
