@@ -211,7 +211,7 @@
 - [x]  Tag 컴포넌트 이름 수정
 - [x]  items 함수 대체하기
 - [x]  KanbanBoard의 상태 정리하기
-- [ ]  LaunchedEffect를 파악하고 snackBar 생성 로직 수정하기
+- [x]  LaunchedEffect를 파악하고 snackBar 생성 로직 수정하기
 - [x]  App의 상태 정리하기
 - [ ]  테스트 이름을 명시적으로 수정하기
 - [ ]  테스트 클래스에 대하여 알맞은 테스트만을 가지도록 테스트 코드 수정

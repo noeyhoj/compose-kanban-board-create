@@ -110,7 +110,7 @@ fun KanbanBoard(modifier: Modifier = Modifier) {
             }
         }
         LaunchedEffect(isShowSnackBar) {
-            showSnackBar()
+            if (isShowSnackBar) showSnackBar()
         }
         if (isShowSnackBar) CreateAlertSnackBar(
             modifier = Modifier
