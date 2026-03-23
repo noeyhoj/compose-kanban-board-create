@@ -209,7 +209,7 @@
 - [x]  KanbanBoardData를 캡슐화하기
 - [x]  companion object와 init 블록의 관계 수정
 - [x]  Tag 컴포넌트 이름 수정
-- [ ]  items 함수 대체하기
+- [x]  items 함수 대체하기
 - [ ]  패키지 구조 신경쓰기
 - [ ]  KanbanBoard의 상태 정리하기
 - [ ]  LaunchedEffect에 대하여

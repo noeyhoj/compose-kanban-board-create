@@ -7,13 +7,16 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -87,7 +90,7 @@ fun StatusCardManageBox(boardList: List<BoardData>, status: Status, modifier: Mo
         Box(
             modifier = Modifier
                 .clip(shape = RoundedCornerShape(bottomStart = 10.dp, bottomEnd = 10.dp))
-                .fillMaxWidth().fillMaxHeight()
+                .fillMaxSize()
                 .background(
                     color = when (status) {
                         Status.TODO -> Color(TODO_CARD_BOX_CONTENT_COLOR)
@@ -105,11 +108,12 @@ fun StatusCardManageBox(boardList: List<BoardData>, status: Status, modifier: Mo
                     shape = RoundedCornerShape(bottomStart = 10.dp, bottomEnd = 10.dp),
                 ),
         ) {
-            LazyColumn(
-                modifier = Modifier.fillMaxWidth().padding(horizontal = 17.dp, vertical = 16.dp),
+            Column(
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 17.dp, vertical = 16.dp)
+                    .verticalScroll(rememberScrollState()),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                items(boardList.size) { index ->
+                boardList.indices.forEach { index ->
                     KanbanBoardTemplate(boardList[index])
                     if (index != boardList.lastIndex) Box(modifier = Modifier.height(12.dp))
                 }
