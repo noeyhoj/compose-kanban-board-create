@@ -206,7 +206,7 @@
 
 # 피드백 목록
 
-- [ ]  KanbanBoardData를 캡슐화하기
+- [x]  KanbanBoardData를 캡슐화하기
 - [ ]  companion object와 init 블록의 관계 수정
 - [ ]  Tag 컴포넌트 이름 수정
 - [ ]  items 함수 대체하기
