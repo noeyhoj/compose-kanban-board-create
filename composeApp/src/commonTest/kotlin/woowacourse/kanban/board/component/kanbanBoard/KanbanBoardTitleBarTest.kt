@@ -79,7 +79,7 @@ class KanbanBoardTitleBarTest {
     }
 
     @Test
-    fun `현재 상태에 맞게 진행률이 진행바에 나타난다`() = runComposeUiTest {
+    fun `20%의 완료율을 가졌을 때 20%가 진행바에 나타난다`() = runComposeUiTest {
 
         setContent {
             KanbanBoardTitleBar(

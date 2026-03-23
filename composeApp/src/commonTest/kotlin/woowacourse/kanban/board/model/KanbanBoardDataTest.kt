@@ -64,7 +64,7 @@ class KanbanBoardDataTest {
     }
 
     @Test
-    fun `전체 할 일 중 완료된 일의 비율을 계산한다`() {
+    fun `5개 중에 done이 1개라면 20%의 완료율을 계산한다`() {
         val kanbanBoardData = KanbanBoardData(
             boardList,
         )

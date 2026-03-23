@@ -54,7 +54,7 @@ class StatusCardManageBoxTest {
     )
 
     @Test
-    fun `boardList 중에 TODO에 해당하는 카드 만큼을 박스에 그린다`() = runComposeUiTest {
+    fun `boardList 중에 TODO에 해당하는 카드 3개를 박스에 그린다`() = runComposeUiTest {
 
         val status = Status.TODO
 
