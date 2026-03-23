@@ -34,6 +34,10 @@ import woowacourse.kanban.board.state.BoardDataState
 fun KanbanBoard(modifier: Modifier = Modifier) {
     val kanbanBoardData = remember { KanbanBoardData() }
 
+    val statuses = remember { Status.entries }
+
+    val names = remember { listOf("다이노", "페임스") }
+
     var showDialog by remember { mutableStateOf(false) }
     var isShowSnackBar by remember { mutableStateOf(false) }
 
@@ -99,6 +103,8 @@ fun KanbanBoard(modifier: Modifier = Modifier) {
                     onDismissRequest = { onDismissRequest() },
                 ) {
                     TaskCreateDialog(
+                        statuses = statuses,
+                        names = names,
                         onTaskCreate = {
                             onTaskCreate(it)
                             onDismissRequest()

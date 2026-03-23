@@ -18,14 +18,13 @@ import woowacourse.kanban.board.model.Status
 import woowacourse.kanban.board.state.BoardDataState
 
 @Composable
-fun TaskCreateDialog(modifier: Modifier = Modifier, onTaskCreate: (BoardDataState) -> Unit, onDismissRequest: () -> Unit) {
-    val statuses = Status.entries
-
-    val names = listOf(
-        "다이노",
-        "페임스",
-    )
-
+fun TaskCreateDialog(
+    modifier: Modifier = Modifier,
+    statuses: List<Status>,
+    names: List<String>,
+    onTaskCreate: (BoardDataState) -> Unit,
+    onDismissRequest: () -> Unit,
+) {
     val boardDataState = remember { BoardDataState() }
 
     val isCreateError = boardDataState.isTitleError || boardDataState.isTagsError
