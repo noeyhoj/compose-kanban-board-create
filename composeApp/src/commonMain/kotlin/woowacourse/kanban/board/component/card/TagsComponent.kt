@@ -19,7 +19,7 @@ fun TagsComponent(tags: List<Tag>, modifier: Modifier = Modifier) {
         verticalArrangement = Arrangement.spacedBy(4.dp),
     ) {
         tags.forEach { tag ->
-            Tag(
+            TagComponent(
                 tag,
                 modifier = Modifier
                     .background(

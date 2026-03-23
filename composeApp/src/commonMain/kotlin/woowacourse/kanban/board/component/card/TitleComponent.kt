@@ -8,7 +8,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun Title(title: String, modifier: Modifier = Modifier) {
+fun TitleComponent(title: String, modifier: Modifier = Modifier) {
     Box(
         modifier = modifier,
     ) {

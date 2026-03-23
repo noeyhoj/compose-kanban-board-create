@@ -10,12 +10,12 @@ import androidx.compose.ui.unit.sp
 import woowacourse.kanban.board.constant.CONTENT_COLOR
 
 @Composable
-fun Content(content: String, modifier: Modifier = Modifier) {
+fun DescriptionComponent(description: String, modifier: Modifier = Modifier) {
     Box(
         modifier = modifier,
     ) {
         Text(
-            content,
+            description,
             overflow = TextOverflow.Ellipsis,
             maxLines = 2,
             fontSize = 14.sp,

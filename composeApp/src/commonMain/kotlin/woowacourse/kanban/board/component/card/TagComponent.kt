@@ -10,7 +10,7 @@ import androidx.compose.ui.unit.sp
 import woowacourse.kanban.board.model.Tag
 
 @Composable
-fun Tag(tag: Tag, modifier: Modifier = Modifier) {
+fun TagComponent(tag: Tag, modifier: Modifier = Modifier) {
     Box(
         modifier = modifier,
     ) {

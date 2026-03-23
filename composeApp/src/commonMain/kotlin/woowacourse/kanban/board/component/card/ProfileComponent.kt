@@ -21,7 +21,7 @@ import woowacourse.kanban.board.constant.PROFILE_BG_COLOR
 import woowacourse.kanban.board.constant.PROFILE_COLOR
 
 @Composable
-fun Profile(nickname: String, modifier: Modifier = Modifier) {
+fun ProfileComponent(nickname: String, modifier: Modifier = Modifier) {
     Row(
         modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(6.dp),

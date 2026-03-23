@@ -44,11 +44,11 @@ fun KanbanBoardTemplate(board: BoardData) {
     ) {
         Column {
             // 제목
-            Title(title = board.title, modifier = Modifier.padding(vertical = 8.dp).testTag("제목"))
+            TitleComponent(title = board.title, modifier = Modifier.padding(vertical = 8.dp).testTag("제목"))
 
             // 중간 내용
             if (board.description.isNotBlank()) {
-                Content(content = board.description, modifier = Modifier.padding(vertical = 4.dp).testTag("중간내용"))
+                DescriptionComponent(description = board.description, modifier = Modifier.padding(vertical = 4.dp).testTag("중간내용"))
             }
 
             // 태그
@@ -60,7 +60,7 @@ fun KanbanBoardTemplate(board: BoardData) {
             HorizontalDivider(thickness = 2.dp)
 
             // 작성자
-            Profile(nickname = board.nickname, modifier = Modifier.padding(vertical = 8.dp).testTag("프로필"))
+            ProfileComponent(nickname = board.nickname, modifier = Modifier.padding(vertical = 8.dp).testTag("프로필"))
         }
     }
 }
