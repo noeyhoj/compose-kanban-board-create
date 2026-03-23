@@ -27,7 +27,7 @@ fun TaskCreateDialog(
 ) {
     val boardDataState = remember { BoardDataState() }
 
-    val isCreateError = boardDataState.isTitleError || boardDataState.isTagsError
+    val isCreateError = boardDataState.isTitleError || boardDataState.isTagsError || boardDataState.titleInputValue.isBlank()
 
     Column(
         modifier = modifier

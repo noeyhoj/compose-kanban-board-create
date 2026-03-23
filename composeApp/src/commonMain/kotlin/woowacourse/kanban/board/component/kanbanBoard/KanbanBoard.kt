@@ -64,20 +64,16 @@ fun KanbanBoard(modifier: Modifier = Modifier) {
     }
 
     fun onTaskCreate(boardDataState: BoardDataState) {
-        if (BoardData.isTitleError(boardDataState.titleInputValue)) {
-            boardDataState.isTitleError = true
-        } else {
-            val boardData = BoardData(
-                title = boardDataState.titleInputValue,
-                description = boardDataState.descriptionInputValue,
-                tags = if (boardDataState.tagsInputValue.isNotBlank()) {
-                    boardDataState.tagsInputValue.split(",").map { Tag(it) }
-                } else emptyList(),
-                status = boardDataState.statusValue,
-                nickname = boardDataState.nameValue,
-            )
-            kanbanBoardData.addBoardData(boardData)
-        }
+        val boardData = BoardData(
+            title = boardDataState.titleInputValue,
+            description = boardDataState.descriptionInputValue,
+            tags = if (boardDataState.tagsInputValue.isNotBlank()) {
+                boardDataState.tagsInputValue.split(",").map { Tag(it) }
+            } else emptyList(),
+            status = boardDataState.statusValue,
+            nickname = boardDataState.nameValue,
+        )
+        kanbanBoardData.addBoardData(boardData)
     }
 
     suspend fun showSnackBar() {
