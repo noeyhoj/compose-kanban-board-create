@@ -8,8 +8,8 @@ data class BoardData(
     val nickname: String,
 ) {
     init {
-        require(isTitleError(title)) { "[ERROR] 제목이 비어있으면 안됩니다." }
-        require(isTagsError(tags)) { "[ERROR] 태그의 개수가 너무 많습니다." }
+        require(!isTitleError(title)) { "[ERROR] 제목이 비어있으면 안됩니다." }
+        require(!isTagsError(tags)) { "[ERROR] 태그의 개수가 너무 많습니다." }
     }
 
     companion object {
